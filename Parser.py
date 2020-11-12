@@ -2,6 +2,7 @@ import argparse
 import Parameters
 import Displays
 import Problem_Modifier
+import Formatter
 
 def isfloat(x):
     try:
@@ -66,16 +67,44 @@ def parse_args_and_file():
     args = get_args()
     print(args.input)
     problems = []
+    formatter = Formatter.Formatter()
     with open(args.input, "r") as file:
         problem= None
+        preamble_passed = False
         for line in file.readlines():
             if (line == '=====\n' ):
+                preamble_passed = True
                 print('created problem')
                 if(problem is not None):
                     problems.append(problem)
                 problem = Problem_Modifier.Problem_Specs()
                 continue
             data = line.split()
+            if(not preamble_passed):
+                if(data[0] == 'NONUMBER'):
+                    formatter.has_numbebered_pages(False)
+                elif(data[0] == 'TITLEPAGE'):
+                    formatter.has_title_page(True)
+                elif(data[0] == 'TITLETEXT'):
+                    text = ' '.join(data[1:])
+                    formatter.set_title_text(text)
+                elif(data[0] == 'MARKTOTAL'):
+                    total_marks = int(data[1])
+                    formatter.set_mark_total(total_marks)
+                elif(data[0] == 'HEADER_L'):
+                    text = ' '.join(data[1:])
+                    formatter.set_left_header(text)
+                elif(data[0] == 'HEADER_R'):
+                    text = ' '.join(data[1:])
+                    formatter.set_right_header(text)
+                elif(data[0] == 'FOOTER_L'):
+                    text = ' '.join(data[1:])
+                    formatter.set_left_footer(text)
+                elif(data[0] == 'FOOTER_R'):
+                    text = ' '.join(data[1:])
+                    formatter.set_right_footer(text)
+
+                continue
             if(data[0] == 'VAR'):
                 parse_variable_line(problem, data)
             elif (data[0] == 'TOSIM'):
@@ -109,7 +138,7 @@ def parse_args_and_file():
                 marks = int(data[1])
                 problem.set_marks(marks)
 
-    return problems
+    return problems, formatter
 
 if __name__ == "__main__":
     parse_args_and_file()
