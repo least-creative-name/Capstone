@@ -3,6 +3,13 @@ class Parameter:
         if type(name)!= str:
             raise TypeError('a parameter was given an invalid name')
         self.name = name
+    def get_name(self):
+        return self.name
+    # each child class should have its own version of get/ set, someone should add this when they play with the data
+    def get_value(self):
+        raise TypeError('this function should have been overwritten')
+    def set_value(self):
+        raise TypeError('this function should have been overwritten')
 
 class Const(Parameter):
     def __init__(self, name, value):
@@ -36,19 +43,11 @@ class Calc(Parameter):
         self.formula = formula
 
 class Sim(Parameter):
-    def __init__(self, name, schematic_name):
+    def __init__(self, name, schematic_var_name):
         Parameter.__init__(self=self, name=name)
-        if(type(schematic_name) != str):
-            raise TypeError('A parameter called '+self.name+' was given an invalid list of values of '+ str(schematic_name))
-        self.schematic_name = schematic_name
-
-def main():
-    # testing = Parameter('bob')
-    testing = Const('bob', 5)
-    testing = Rand('bob', 0, 10)
-    testing = Range('bob', [1, 2, 3, 4])
-    testing = Calc('bob', '43 = 234234 + 3123')
-    testing = Sim('bob', 'SHJfjsikjf')
+        if(type(schematic_var_name) != str):
+            raise TypeError('A parameter called '+self.name+' was given an invalid list of values of '+ str(schematic_var_name))
+        self.schematic_var_name = schematic_var_name
 
 if __name__ == "__main__":
-    main()
+    print('why is this being run LOL?')
