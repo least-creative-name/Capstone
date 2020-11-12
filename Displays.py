@@ -5,12 +5,19 @@ class Display:
 class Image(Display):
     def __init__(self, image_path):
         self.img_path = image_path
+        print('added image with path '+image_path)
 class Schematic(Display):
-    def __init__(self, schematic_path):
+    def __init__(self, schematic_path, show=True):
+        if(type(schematic_path) != str):
+            raise TypeError('schematic path should be a string')
+        if(type(show) != bool):
+            raise TypeError('show should be a bool')
         self.schematic_path = schematic_path
+        self.show = show
+        print('added schematic with path '+self.schematic_path+ ' '+str(self.show))
 class Text(Display):
     def __init__(self, text):
+        if(type(text) != str):
+            raise TypeError('text should be a string')
         self.text = text
-class Title(Display):
-    def __init__(self, title):
-        self.title = title
+        print('created text with value '+text)
