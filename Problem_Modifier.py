@@ -45,14 +45,3 @@ class Problem_Specs:
 
 if __name__ == "__main__":
     print('why is this being run?')
-    # problem1 = Problem_Specs()
-    # temp1 = Parameters.Const('bob', 5)
-    # temp2 = Parameters.Rand('bob1', 0, 5)
-    # temp3 = Parameters.Range('bob2', [1, 2, 3, 4])
-    # temp4 = Parameters.Calc('bob3', '234 = 234234 =234')
-    # temp5 = Parameters.Sim('bob4', 'apple')
-    # problem1.add_parameter(temp1)
-    # problem1.add_parameter(temp2)
-    # problem1.add_parameter(temp3)
-    # problem1.add_parameter(temp4)
-    # problem1.add_parameter(temp5)
