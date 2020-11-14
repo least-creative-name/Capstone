@@ -3,6 +3,7 @@ import Parameters
 import Displays
 import Problem_Modifier
 import Formatter
+import Randomizer
 
 def isfloat(x):
     try:
@@ -76,7 +77,7 @@ def parse_args_and_file():
                 preamble_passed = True
                 print('created problem')
                 if(problem is not None):
-                    problems.append(problem)
+                    problems.append(problem) # Bug : doesn't execute if =====\n is on the last line
                 problem = Problem_Modifier.Problem_Specs()
                 continue
             data = line.split()
@@ -141,4 +142,6 @@ def parse_args_and_file():
     return problems, formatter
 
 if __name__ == "__main__":
-    parse_args_and_file()
+    num_variants = 20
+    problems , formatter = parse_args_and_file()
+    Randomizer.randomise_rand_and_range(problems , num_variants)

@@ -1,0 +1,16 @@
+=====
+TITLE Question Topic
+MARKS 10
+IMAGE diagram1.png
+SCHEMATIC schem1.asc
+VAR R1 CONST 373
+VAR R2 RAND 1 10
+VAR R3 RANGE 1 2 3 4
+TOSIM R1 R_1
+VAR Vmes SIM V1
+VAR hot_pancakes CALC R1+R2+R3
+TEXT Assume the circuit from the image where R1 = [R1]ohms and R3 = [R3]ohms.
+TEXT A second line of text
+SOLTEXT solution is [hot_pancakes]
+SOLDISPLAY ALL
+=====
