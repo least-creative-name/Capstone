@@ -4,6 +4,7 @@ import Displays
 import Problem_Modifier
 import Formatter
 import Randomizer
+ 
 
 def isfloat(x):
     try:
@@ -139,9 +140,11 @@ def parse_args_and_file():
                 marks = int(data[1])
                 problem.set_marks(marks)
 
-    return problems, formatter
+    Contain = Problem_Modifier.Container(problems,formatter)
+    return Contain
 
 if __name__ == "__main__":
     num_variants = 18
-    problems , formatter = parse_args_and_file()
-    Randomizer.randomise_rand_and_range(problems , num_variants)
+    Contain = parse_args_and_file()
+    Randomizer.randomise_rand_and_range(Contain.get_problems() , num_variants)
+    num_variants = 18
