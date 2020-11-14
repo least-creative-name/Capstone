@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["-input","./test.txt","-num_variants","20"]
+            "args": ["-input","./test.txt","-num_variants","17"]
         }
     ]
 }

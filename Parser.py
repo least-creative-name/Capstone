@@ -76,8 +76,9 @@ def parse_args_and_file():
     with open(args.input, "r") as file:
         problem= None
         preamble_passed = False
-        for line in file.readlines():
-            if (line == '=====\n' ):
+        lines = file.readlines()
+        for line in lines:
+            if (line == '=====\n' or (line == '=====' and line is lines[-1])):
                 preamble_passed = True
                 print('created problem')
                 if(problem is not None):
