@@ -32,6 +32,7 @@ def convert_num(value):
 def get_args():
     parser = argparse.ArgumentParser(description='idk lets parse some args')
     parser.add_argument("-input",help="insert input txt file (mandatory)" , dest="input", type=str, required=True)
+    parser.add_argument("-num_variants",help="insert Number of Variants" , dest="num_variants", type=int, required=True)
 
     args = parser.parse_args()
     return args
@@ -67,6 +68,8 @@ def parse_variable_line(problem, line):
 
 def parse_args_and_file():
     args = get_args()
+    global num_variants
+    num_variants = args.num_variants
     print(args.input)
     problems = []
     formatter = Formatter.Formatter()
@@ -144,7 +147,6 @@ def parse_args_and_file():
     return Contain
 
 if __name__ == "__main__":
-    num_variants = 18
     Contain = parse_args_and_file()
     Randomizer.randomise_rand_and_range(Contain.get_problems() , num_variants)
-    num_variants = 18
+    
