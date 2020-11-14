@@ -142,6 +142,6 @@ def parse_args_and_file():
     return problems, formatter
 
 if __name__ == "__main__":
-    num_variants = 20
+    num_variants = 18
     problems , formatter = parse_args_and_file()
     Randomizer.randomise_rand_and_range(problems , num_variants)

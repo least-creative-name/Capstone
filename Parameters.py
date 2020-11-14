@@ -45,7 +45,9 @@ class Range(Parameter):
         self.values = values
         print('created range '+name+' '+str(self.values))
     
-
+    def get_values(self):
+        return self.values
+        
 class Calc(Parameter):
     def __init__(self, name, formula):
         Parameter.__init__(self=self, name=name)
