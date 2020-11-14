@@ -1,15 +1,16 @@
 class Parameter:
-    def __init__(self, name):
+    def __init__(self, name ):
         if type(name)!= str:
             raise TypeError('a parameter was given an invalid name')
         self.name = name
+        self.value = None
     def get_name(self):
         return self.name
     # each child class should have its own version of get/ set, someone should add this when they play with the data
     def get_value(self):
-        raise TypeError('this function should have been overwritten')
-    def set_value(self):
-        raise TypeError('this function should have been overwritten')
+        return self.value
+    def set_value(self , value):
+        self.value = value
 
 class Const(Parameter):
     def __init__(self, name, value):
@@ -29,6 +30,12 @@ class Rand(Parameter):
         self.min = min
         self.max = max
         print('created rand '+name+' '+str(self.min)+' '+str(self.max))
+    def get_min(self):
+        return self.min
+    def get_max(self):
+        return self.max 
+
+
 
 class Range(Parameter):
     def __init__(self, name, values):
@@ -37,7 +44,10 @@ class Range(Parameter):
             raise TypeError('A parameter called '+self.name+' was given an invalid list of values of '+ str(values))
         self.values = values
         print('created range '+name+' '+str(self.values))
-
+    
+    def get_values(self):
+        return self.values
+        
 class Calc(Parameter):
     def __init__(self, name, formula):
         Parameter.__init__(self=self, name=name)

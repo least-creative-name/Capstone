@@ -1,6 +1,18 @@
 import Parameters
 import Displays
 
+
+class Container:
+    def __init__(self,problems,formatter):
+        self.problems = problems
+        self.formatter = formatter
+    def get_problems(self):
+        return self.problems
+    def set_problems(self,problems):
+        self.problems = problems
+
+
+
 class Problem_Specs:
     def __init__(self):
         # dictionary of every parameter, found by using its name
