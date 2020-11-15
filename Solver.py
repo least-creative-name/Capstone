@@ -3,7 +3,7 @@ import re
 def calc_problem(calc, problem, stack, num_variants):
 	result = []
 	formStr = calc.formula
-	print("Starting: "+formStr)
+	print("Starting: "+ calc.name + " = " + formStr)
 
 	#extract each element encompassed in single square brackets
 	params = set(re.findall("\[([^\[\]]+)\]", formStr))
@@ -35,7 +35,7 @@ def calc_problem(calc, problem, stack, num_variants):
 
 
 	calc.set_value(result)
-	print("Solved: "+formStr)
+	print("Solved: " + calc.name + " = " + formStr)
 	return result
 
 def solve_all(problems, num_variants):

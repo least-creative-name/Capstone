@@ -23,6 +23,7 @@ VAR R2 RAND 1 10
 VAR R3 RANGE 1 2 3 5
 TOSIM R1 R_1
 VAR Vme SIM V1
+VAR french_toast CALC [hot_pancakes]+1
 VAR hot_pancakes CALC [R1]+[R2]+[R3]
 TEXT Assume the circuit from the image where R1 = [R1]ohms and R3 = [R3]ohms.
 TEXT A second line of text
