@@ -4,7 +4,7 @@ import Displays
 import Problem_Modifier
 import Formatter
 import Randomizer
- 
+import Solver
 
 def isfloat(x):
     try:
@@ -147,7 +147,16 @@ def parse_args_and_file():
     Contain = Problem_Modifier.Container(problems,formatter)
     return Contain
 
+#convert initial int/float value into a list for ease of use
+def extend_const(problems, count):
+    for problem in problems:
+        for const in problem.consts:
+            const.set_value([const.get_value()]*count)
+    return
+
 if __name__ == "__main__":
     Contain = parse_args_and_file()
+    extend_const(Contain.get_problems(), num_variants)
     Randomizer.randomise_rand_and_range(Contain.get_problems() , num_variants)
+    Solver.solve_all(Contain.get_problems(), num_variants)
     
