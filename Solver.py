@@ -1,4 +1,6 @@
 import re
+import math
+import regex
 
 def calc_problem(calc, problem, stack, num_variants):
 	result = []
@@ -18,6 +20,12 @@ def calc_problem(calc, problem, stack, num_variants):
 
 	#any additonal formatting tweaks to convert generic text to python styling
 	formStr = formStr.replace("^","**") #allow exponents using ^
+
+	#use log as natural logarithm (math.log())
+	m = regex.search("(?<!math\.)log(\((?:[^)(]+|(?1))*+\))",formStr)
+	while(m != None):
+		formStr = formStr.replace(m[0],"math.log"+m[1])
+		m = regex.search("(?<!math\.)log(\((?:[^)(]+|(?1))*+\))",formStr)
 
 
 	for i in range(num_variants):
