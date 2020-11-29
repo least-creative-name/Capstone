@@ -69,9 +69,6 @@ def parse_variable_line(problem, line):
 
 def parse_args_and_file():
     args = get_args()
-    global num_variants
-    num_variants = args.num_variants
-    print(args.input)
     problems = []
     formatter = Formatter.Formatter()
     with open(args.input, "r") as file:
@@ -81,7 +78,6 @@ def parse_args_and_file():
         for line in lines:
             if (line == '=====\n' or (line == '=====' and line is lines[-1])):
                 preamble_passed = True
-                print('created problem')
                 if(problem is not None):
                     problems.append(problem) # Bug : doesn't execute if =====\n is on the last line
                 problem = Problem_Modifier.Problem_Specs()
@@ -146,6 +142,7 @@ def parse_args_and_file():
                 problem.set_marks(marks)
 
     Contain = Problem_Modifier.Container(problems,formatter)
+    contain.set_num_variants(args.num_variants)
     return Contain
 
 #convert initial int/float value into a list for ease of use
@@ -154,11 +151,3 @@ def extend_const(problems, count):
         for const in problem.consts:
             const.set_value([const.get_value()]*count)
     return
-
-if __name__ == "__main__":
-    Contain = parse_args_and_file()
-    extend_const(Contain.get_problems(), num_variants)
-    Randomizer.randomise_rand_and_range(Contain.get_problems() , num_variants)
-    Solver.solve_all(Contain.get_problems(), num_variants)
-    Text_Formatter.format_text(Contain.get_problems(), num_variants)
-    

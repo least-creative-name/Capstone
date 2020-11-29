@@ -1,0 +1,17 @@
+import argparse
+import Parameters
+import Displays
+import Problem_Modifier
+import Formatter
+import Randomizer
+import Solver
+import Text_Formatter
+import Parser
+
+if __name__ == "__main__":
+    Contain = parse_args_and_file()
+    extend_const(Contain.get_problems(), num_variants)
+    Randomizer.randomise_rand_and_range(Contain.get_problems() , num_variants)
+    Solver.solve_all(Contain.get_problems(), num_variants)
+    Text_Formatter.format_text(Contain.get_problems(), num_variants)
+    
