@@ -38,8 +38,8 @@ def calc_problem(calc, problem, stack, num_variants):
 			variantStr = variantStr.replace("["+param+"]",str(problem.parameters[param].value[i]))
 		#use eval to process equation
 		result.append(eval(variantStr))
-		print(variantStr)
-		print(result[i])
+		#print(variantStr)
+		#print(result[i])
 
 
 	calc.set_value(result)
