@@ -9,9 +9,9 @@ import Text_Formatter
 import Parser
 
 if __name__ == "__main__":
-    Contain = parse_args_and_file()
-    extend_const(Contain.get_problems(), num_variants)
-    Randomizer.randomise_rand_and_range(Contain.get_problems() , num_variants)
-    Solver.solve_all(Contain.get_problems(), num_variants)
-    Text_Formatter.format_text(Contain.get_problems(), num_variants)
+    Contain = Parser.parse_args_and_file()
+    Parser.extend_const(Contain.get_problems(), Contain.get_num_variants())
+    Randomizer.randomise_rand_and_range(Contain.get_problems() , Contain.get_num_variants())
+    Solver.solve_all(Contain.get_problems(), Contain.get_num_variants())
+    Text_Formatter.format_text(Contain.get_problems(), Contain.get_num_variants())
     

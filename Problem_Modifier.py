@@ -13,6 +13,8 @@ class Container:
         self.problems = problems
     def set_num_variants(self, value):
         self.num_variants = value
+    def get_num_variants(self):
+        return self.num_variants
 
 
 

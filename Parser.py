@@ -53,8 +53,8 @@ def parse_variable_line(problem, line):
         maximum = convert_num(values[1])
         param = Parameters.Rand(var_name, minimum, maximum)
     elif(var_type == 'RANGE'):
-        for val in values:
-            val = convert_num(val)
+        for index, val in enumerate(values):
+            values[index] = convert_num(val)
         param = Parameters.Range(var_name, values)
     elif(var_type == 'CALC'):
         values = values[0]
@@ -67,11 +67,14 @@ def parse_variable_line(problem, line):
     problem.add_parameter(param)
 
 
-def parse_args_and_file():
-    args = get_args()
+def parse_args_and_file(input_file = None, num_variants = None):
+    if (input_file is None and num_variants is None):
+        args = get_args()
+        input_file = args.input
+        num_variants = args.num_variants
     problems = []
     formatter = Formatter.Formatter()
-    with open(args.input, "r") as file:
+    with open(input_file, "r") as file:
         problem= None
         preamble_passed = False
         lines = file.readlines()
@@ -142,7 +145,7 @@ def parse_args_and_file():
                 problem.set_marks(marks)
 
     Contain = Problem_Modifier.Container(problems,formatter)
-    contain.set_num_variants(args.num_variants)
+    Contain.set_num_variants(num_variants)
     return Contain
 
 #convert initial int/float value into a list for ease of use
