@@ -28,3 +28,40 @@ TEXT A second line of text
 SOLTEXT solution is [hot_pancakes]
 SOLDISPLAY ALL
 =====
+TITLE Delay constraints 
+MARKS 2 
+IMAGE ./Picture/Midterm/Flip_Flop.png
+VAR Tsetup CONST 50
+VAR Thold CONST 50
+VAR Tpcq CONST 30
+VAR Tskew CONST 50
+VAR Tpd CONST 1330
+VAR Output_Frequency CALC 1/([Tpd]+[Tskew]+[Tpcq]+[Tsetup])
+TEXT In the sequential circuit below, the propagation delays of each combinational logic block is shown. Assume that the flip-flops have a setup time of [Tsetup]ps, a hold time of [Thold]ps, and a clock-to-Q propagation delay of [Tpcq]ps.  The maximum clock skew (tskew) is [Tskew] ps .Determinethe maximum clock frequency, fmax,for this sequential circuit
+SOLTEXT solution is [Output_Frequency]
+SOLDISPLAY ALL
+=====
+TITLE Power Dissapation
+MARKS 10
+VAR Cx CONST 20
+VAR Cy CONST 20
+VAR Cz CONST 80
+VAR VDD CONST 1.5
+VAR f CONST 2
+VAR Pa CONST 0.4
+VAR Pb CONST 0.4
+VAR Ps CONST 0.5
+VAR f2 CONST 1
+VAR A1 CALC ([Pa]*[Ps]*(1-[Pa]*[Ps]))
+VAR A2 CALC ((1-[Pb]*(1-[Ps]))*([Pb]*(1-[Ps])))
+VAR A3 CALC ((1-[Pb]*(1-[Ps]))*(1-[Pa]*[Ps]))*(1-(1-[Pb]*(1-[Ps]))*(1-[Pa]*[Ps]))
+VAR P_total CALC ([A1]*[Cx]+[A2]*[Cy]+[A3]*[Cz])*[f]*[VDD]^2 
+VAR P_b CALC [Ps]*([Cz]+[Cx])*[f]*[VDD]^2+(1-[Ps])*([Cz]+[Cy])*[f2]*[VDD]^2
+TEXT For the 2-to-1 multiplexer below, the parasitic capacitance at each node is CX=[Cx], CY=[Cy], and CZ=[Cz], and VDD=[VDD]V  a) Find the dynamic power dissipation, Pswitching1, given that the clock frequency is 2GHz and that the inputs A, B, and S are random, independent variables with probabilities
+IMAGE ./Picture/Midterm/power.pn
+TEXT b) Find the dynamic power dissipation,  Pswitching2, if input A is now a 2GHz clock signal, input B is a 1GHz clock from a clock divider circuit, and input S is a random control signal with a probability P(S=1)=[Ps]
+IMAGE ./Picture/Midterm/power_2.png
+SOLTEXT solution1 is [P_total]
+SOLTEXT solution2 is [P_b]
+SOLDISPLAY ALL 
+=====
