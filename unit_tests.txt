@@ -28,8 +28,6 @@ TEXT A second line of text
 SOLTEXT solution is [hot_pancakes]
 SOLDISPLAY ALL
 =====
-=====
-=====
 TITLE Delay constraints 
 MARKS 2 
 IMAGE ./Picture/Midterm/Flip_Flop.png
