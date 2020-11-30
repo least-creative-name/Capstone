@@ -28,20 +28,21 @@ TEXT A second line of text
 SOLTEXT solution is [hot_pancakes]
 SOLDISPLAY ALL
 =====
-TITLE Delay constraints 
+TITLE Delay constraints - Midterm 2014
 MARKS 2 
 IMAGE ./Picture/Midterm/Flip_Flop.png
-VAR Tsetup CONST 50
-VAR Thold CONST 50
-VAR Tpcq CONST 30
-VAR Tskew CONST 50
+VAR Tsetup RAND 20 70
+VAR Thold RAND 30 60
+VAR Tpcq RAND 20 50
+VAR Tskew RAND 20 50
 VAR Tpd CONST 1330
 VAR Output_Frequency CALC 1/([Tpd]+[Tskew]+[Tpcq]+[Tsetup])
+VAR Output CALC [Output_Frequency]*1000000
 TEXT In the sequential circuit below, the propagation delays of each combinational logic block is shown. Assume that the flip-flops have a setup time of [Tsetup]ps, a hold time of [Thold]ps, and a clock-to-Q propagation delay of [Tpcq]ps.  The maximum clock skew (tskew) is [Tskew] ps .Determinethe maximum clock frequency, fmax,for this sequential circuit
-SOLTEXT solution is [Output_Frequency]
+SOLTEXT solution is [Output]MHz
 SOLDISPLAY ALL
 =====
-TITLE Power Dissapation
+TITLE Power Dissapation - Midterm 2014
 MARKS 10
 VAR Cx CONST 20
 VAR Cy CONST 20
@@ -61,7 +62,21 @@ TEXT For the 2-to-1 multiplexer below, the parasitic capacitance at each node is
 IMAGE ./Picture/Midterm/power.pn
 TEXT b) Find the dynamic power dissipation,  Pswitching2, if input A is now a 2GHz clock signal, input B is a 1GHz clock from a clock divider circuit, and input S is a random control signal with a probability P(S=1)=[Ps]
 IMAGE ./Picture/Midterm/power_2.png
-SOLTEXT solution1 is [P_total]
-SOLTEXT solution2 is [P_b]
+SOLTEXT Pswitching1 is [P_total] uW
+SOLTEXT Pswitching2 is [P_b] uW
+SOLDISPLAY ALL 
+=====
+TITLE INVERTER CHAIN SIZING - Midterm 2018F
+MARKS 7
+VAR Cout CONST 15000
+VAR Cin CONST 3
+VAR Tpar CONST 12
+VAR N CALC log([Cout]/[Cin])/log(4)
+VAR Nstages CALC [N]-0.143856189774725
+VAR Tpd1 CALC ([Nstages]-1)*4*[Tpar]
+VAR Tpd2 CALC [Tpar]*[Cout]/(3*4^([Nstages]-1))
+VAR Total CALC [Tpd1]+[Tpd2]
+TEXT Given that the minimum-size inverter has an input capacitance of [Cin]fF and its inherent delay is equal to [Tpar]ps find the number of inverters for an inverter chain that minimizes the prop delay to drive a [Cout] load using a fan-out factor of 4 for the inverter chain sizing. Ensure that the correct input logic value appears at the output
+SOLTEXT Total delay is [Total] ps
 SOLDISPLAY ALL 
 =====
