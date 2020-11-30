@@ -7,6 +7,7 @@ import Randomizer
 import Solver
 import Text_Formatter
 import Parser
+import math
 
 
 class Tester:
@@ -14,7 +15,7 @@ class Tester:
         self.container = None
     
     def setup_m1_test(self):
-        self.container = Parser.parse_args_and_file('./text.txt', 1)
+        self.container = Parser.parse_args_and_file('./unit_tests.txt', 1)
     
     def run_case(self):
         Parser.extend_const(self.container.get_problems(), self.container.get_num_variants())
@@ -63,6 +64,26 @@ class Tester:
                 assert(problem.parameters['hot_pancakes'].get_value()[0] == (problem.parameters['R1'].get_value()[0] + problem.parameters['R2'].get_value()[0] + problem.parameters['R3'].get_value()[0]))
                 assert(problem.parameters['french_toast'].get_value()[0] == (problem.parameters['hot_pancakes'].get_value()[0] +1))
         
+    def verify_m1_solver_complex(self):
+        problem = Problem_Modifier.Problem_Specs()
+        A = Parameters.Const('A', 4)
+        B = Parameters.Const('B', 7)
+        C = Parameters.Const('C', 3)
+        D = Parameters.Const('D', 2)
+        E = Parameters.Calc('E', '((log([A])*[B])^[C])^0.5\n')
+        problem.add_parameter(A)
+        problem.add_parameter(B)
+        problem.add_parameter(C)
+        problem.add_parameter(D)
+        problem.add_parameter(E)
+        problems = [ problem ]
+
+        Parser.extend_const(problems, 1)
+        Randomizer.randomise_rand_and_range(problems , 1)
+        Solver.solve_all(problems, 1)
+        target_value = ((math.log(A.get_value()[0])*B.get_value()[0])**C.get_value()[0])**0.5
+        assert(problem.parameters['E'].get_value()[0] == target_value)
+
     def verify_m1_results(self):
         print('###############################################################################')
         print('Starting Milestone 1 Unit Tests')
@@ -75,9 +96,14 @@ class Tester:
         self.verify_m1_randomizer()
         print("Result: Passed")
         print('...............................................................................')
-        print('Starting solver (formula) test')
+        print('Starting solver (simple formula) test')
         self.verify_m1_solver()
         print("Result: Passed")
+        print('...............................................................................')
+        print('Starting solver (complex formula) test')
+        self.verify_m1_solver_complex()
+        print("Result: Passed")
+        
 
 if __name__ == "__main__":
     tester = Tester()
