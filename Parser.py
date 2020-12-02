@@ -53,8 +53,8 @@ def parse_variable_line(problem, line):
         maximum = convert_num(values[1])
         param = Parameters.Rand(var_name, minimum, maximum)
     elif(var_type == 'RANGE'):
-        for val in values:
-            val = convert_num(val)
+        for index, val in enumerate(values):
+            values[index] = convert_num(val)
         param = Parameters.Range(var_name, values)
     elif(var_type == 'CALC'):
         values = values[0]
@@ -67,21 +67,20 @@ def parse_variable_line(problem, line):
     problem.add_parameter(param)
 
 
-def parse_args_and_file():
-    args = get_args()
-    global num_variants
-    num_variants = args.num_variants
-    print(args.input)
+def parse_args_and_file(input_file = None, num_variants = None):
+    if (input_file is None and num_variants is None):
+        args = get_args()
+        input_file = args.input
+        num_variants = args.num_variants
     problems = []
     formatter = Formatter.Formatter()
-    with open(args.input, "r") as file:
+    with open(input_file, "r") as file:
         problem= None
         preamble_passed = False
         lines = file.readlines()
         for line in lines:
             if (line == '=====\n' or (line == '=====' and line is lines[-1])):
                 preamble_passed = True
-                print('created problem')
                 if(problem is not None):
                     problems.append(problem) # Bug : doesn't execute if =====\n is on the last line
                 problem = Problem_Modifier.Problem_Specs()
@@ -146,6 +145,7 @@ def parse_args_and_file():
                 problem.set_marks(marks)
 
     Contain = Problem_Modifier.Container(problems,formatter)
+    Contain.set_num_variants(num_variants)
     return Contain
 
 #convert initial int/float value into a list for ease of use
@@ -154,11 +154,3 @@ def extend_const(problems, count):
         for const in problem.consts:
             const.set_value([const.get_value()]*count)
     return
-
-if __name__ == "__main__":
-    Contain = parse_args_and_file()
-    extend_const(Contain.get_problems(), num_variants)
-    Randomizer.randomise_rand_and_range(Contain.get_problems() , num_variants)
-    Solver.solve_all(Contain.get_problems(), num_variants)
-    Text_Formatter.format_text(Contain.get_problems(), num_variants)
-    

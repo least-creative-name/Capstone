@@ -6,10 +6,15 @@ class Container:
     def __init__(self,problems,formatter):
         self.problems = problems
         self.formatter = formatter
+        self.num_variants = None
     def get_problems(self):
         return self.problems
     def set_problems(self,problems):
         self.problems = problems
+    def set_num_variants(self, value):
+        self.num_variants = value
+    def get_num_variants(self):
+        return self.num_variants
 
 
 
