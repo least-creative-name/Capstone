@@ -127,6 +127,7 @@ def parse_args_and_file(input_file = None, num_variants = None):
                     show = bool(data[2])
                 display = Displays.Schematic(file_path, show)
                 problem.add_soldisplay_to_problem(display)
+                problem.set_circuit_schematic_path_and_display(file_path, display)
             elif (data[0] == 'TEXT'):
                 text = ' '.join(data[1:])
                 display = Displays.Text(text)
