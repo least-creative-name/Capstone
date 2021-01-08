@@ -2,7 +2,7 @@
 TITLE Subtraction
 MARKS 10
 IMAGE diagram1.png
-SCHEMATIC sample_asc_files/RC_example.sp.txt
+SCHEMATIC sample_asc_files/volt_div.sp
 VAR R1 CONST 373
 VAR R2 RAND 1 10
 VAR R3 RANGE 1 2 3 4
