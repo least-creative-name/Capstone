@@ -49,6 +49,22 @@ class spice_schematic:
                 return sim_type, terms
         raise ValueError("simulation type was not included in simulation file")
     
+    def set_component_value(self, component, value):
+        if (isinstance(component, PySpice.Spice.BasicElement.Resistor)):
+            component.resistance = value
+        elif (isinstance(component, PySpice.Spice.BasicElement.Capacitor)):
+            component.capactiance = value
+        elif (isinstance(component, PySpice.Spice.BasicElement.CurrentSource)):
+            component.dc_value = value
+        elif (isinstance(component, PySpice.Spice.BasicElement.Inductor)):
+            component.inductance = value
+        elif (isinstance(component, PySpice.Spice.BasicElement.VoltageSource)):
+            component.dc_value = value
+    
+    def set_param_values_to_components(self, variant):
+        for var_name, schematic_name in self.problem_specs.sim_mappings.items():
+            self.set_component_value(self.circuit[schematic_name], self.problem_specs.parameters[var_name].get_value()[variant])
+
     def plot_graph(self,title,x_label,y_label,amplitude,analyse_value,analyse_value_2 = None):
         '''
         Function to plot graphs 
@@ -87,7 +103,6 @@ class spice_schematic:
         '''
         # TODO: add initial conditions in the future, otherwise this may not work as intended
         simulator = self.circuit.simulator(temperature=25, nominal_temperature=25)
-        print(type(simulator))
         dic = dict()
         if(len(args)<2):
             raise ValueError("simulation file for transient analysis has too few arguments, atleast needs to have step time and end time")
@@ -180,26 +195,22 @@ def parse_schematic_paths_for_problems(container):
     netlists = []
     for problem in container.get_problems():
         netlists.append(spice_schematic(problem.circuit_schematic_path, problem))
-    # for netlist in netlists:
-    #     _insert_helper_func to modifify component values based on parameters
-    for sim_netlist in netlists:
-        sim_type, sim_args = sim_netlist.fetch_sim_type_and_args()
-        print('here is what was parsed')
-        print(sim_type)
-        print(sim_args)
-        print('done')
-        if(sim_type == '.op'):
-            sim_netlist.simulate_mode_dc_op()
-        elif(sim_type == '.tran'):
-            sim_netlist.simulate_mode_transient(sim_args)
-        elif(sim_type == '.tf'):
-            sim_netlist.simulate_mode_dc_transfer(sim_args)
-        elif(sim_type == '.dc'):
-            sim_netlist.simulate_mode_dc_sweep(sim_args)
-        elif(sim_type == '.ac'):
-            sim_netlist.simulate_mode_ac_analysis(sim_args)
-        else:
-            raise ValueError("simulation file has unknown simulation type")
+    for netlist in netlists:
+        for i in range(container.get_num_variants()):
+            sim_type, sim_args = netlist.fetch_sim_type_and_args()
+            netlist.set_param_values_to_components(i)
+            if(sim_type == '.op'):
+                netlist.simulate_mode_dc_op()
+            elif(sim_type == '.tran'):
+                netlist.simulate_mode_transient(sim_args)
+            elif(sim_type == '.tf'):
+                netlist.simulate_mode_dc_transfer(sim_args)
+            elif(sim_type == '.dc'):
+                netlist.simulate_mode_dc_sweep(sim_args)
+            elif(sim_type == '.ac'):
+                netlist.simulate_mode_ac_analysis(sim_args)
+            else:
+                raise ValueError("simulation file has unknown simulation type")
 
 if __name__ == "__main__":
     print('why is this being run?')
