@@ -15,13 +15,15 @@ def format_text(problems, num_variants):
 		prob.write(r'\usepackage[utf8]{inputenc}'+ "\n")
 		prob.write(r'\usepackage{graphicx}'+ "\n")
 		prob.write(r'\usepackage{parskip}'+ "\n")
-		prob.write(r'\graphicspath{ {./}{../} }'+ "\n")
+		prob.write(r'\usepackage[margin=1in]{geometry}'+"\n")
+		prob.write(r'\graphicspath{ {./}{../} }'+ "\n") #TODO, proper image path detection
 		prob.write(r'\begin{document}'+ "\n")
 
 		soln.write(r'\documentclass[12pt, a4paper]{article}'+ "\n")
 		soln.write(r'\usepackage[utf8]{inputenc}'+ "\n")
 		soln.write(r'\usepackage{graphicx}'+ "\n")
 		soln.write(r'\usepackage{parskip}'+ "\n")
+		soln.write(r'\usepackage[margin=1in]{geometry}'+"\n")
 		prob.write(r'\graphicspath{ {./}{../} }'+ "\n")
 		soln.write(r'\begin{document}'+ "\n")
 
@@ -29,8 +31,11 @@ def format_text(problems, num_variants):
 
 
 		for problem in problems:
+			#make each problem start a new page
 			prob.write(r"\newpage"+"\n")
 			soln.write(r"\newpage"+"\n")
+
+			#use section formatting for problem title
 			if problem.title:
 				prob.write(r"\section*{"+problem.title + "}\n")
 				soln.write(r"\section*{"+problem.title + "}\n")
@@ -46,7 +51,7 @@ def format_text(problems, num_variants):
 					#fill in the numbers
 					for param in paramList:
 						formStr =  formStr.replace("["+param+"]",str(problem.parameters[param].value[i]))
-					prob.write(formStr + "\n\n")
+					prob.write(formStr + "\n\n") #double newline is a paragraph break, single does nothing
 				elif isinstance(item,Displays.Image):
 					prob.write(r"\includegraphics[width=1\textwidth]{"+item.img_path+"}\n\n")
 			for item in problem.solution_displays:
@@ -63,6 +68,7 @@ def format_text(problems, num_variants):
 			if problem.display_solution_parameters:
 				soln.write("\nDump of all parameters:\n\n")
 				for key in problem.parameters.keys():
+					# format as "verbatim" mostly because underscores are macro for subscript (consider modifying to escape via \_ instead)
 					soln.write(r"\verb|"+problem.parameters[key].get_name() +" : "+str(problem.parameters[key].value[i]) + "|\n\n")
 			prob.write("\n")
 			soln.write("\n")
