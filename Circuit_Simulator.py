@@ -94,8 +94,18 @@ class spice_schematic:
         analysis = simulator.operating_point()
         for node in analysis.nodes.values(): 
             print('Node {}: {:4.3f} V'.format(str(node), float(node)))
-        for node in analysis.branches.values(): 
-            print('Node {}: {:5.3f} A'.format(str(node), float(node))) 
+            for sim_node in self.problem_specs.sims:
+                if sim_node.schematic_var_name == str(node):
+                    if sim_node.get_value() == None:
+                        sim_node.value = []
+                    sim_node.value.append(float(node))
+        for branch in analysis.branches.values(): 
+            print('Branch {}: {:5.3f} A'.format(str(branch), float(branch)))
+            for sim_branch in self.problem_specs.sims:
+                if sim_branch.schematic_var_name == str(branch):
+                    if sim_branch.get_value() == None:
+                        sim_branch.value = []
+                    sim_branch.value.append(float(branch))
 
     def simulate_mode_transient(self, args):
         '''
@@ -129,11 +139,17 @@ class spice_schematic:
                 raise ValueError("gave faulty parameters for simulation")
         
         analysis = simulator.transient(**dic)
-        probed_values = list(analysis.nodes['n001'])
-        for i in range(len(probed_values)):
-            probed_values[i] = float(probed_values[i])
-        amplitude = max(probed_values)
-        self.plot_graph('Voltage  vs Time','Time [s]','Voltage [V]',amplitude,analysis.nodes['n001'])
+        for key,node in analysis.nodes.items():
+            for sim_node in self.problem_specs.sims:
+                if sim_node.schematic_var_name == str(node):
+                    if sim_node.get_value() == None:
+                        sim_node.value = []
+                    probed_values = list(node)
+                    for i in range(len(probed_values)):
+                        probed_values[i] = float(probed_values[i])
+                    amplitude = max(probed_values)
+                    self.plot_graph( str(node) + ' Voltage  vs Time', 'Time [s]', str(node) + ' Voltage [V]',amplitude,node)
+                    sim_node.value.append(node)
 
     def simulate_mode_dc_transfer(self, args):
         '''
@@ -143,10 +159,13 @@ class spice_schematic:
             raise ValueError('gave faulty parameters for simulation')
         simulator = self.circuit.simulator(temperature=25, nominal_temperature=25)
         analysis = simulator.transfer_function(outvar=args[0],insrc=args[1])
-        print('printing now')
         for node in analysis.nodes.values(): 
             print('Node {}: {:4.3f} '.format(str(node), float(node)))
-        print('done')
+            for sim_node in self.problem_specs.sims:
+                if sim_node.schematic_var_name == str(node):
+                    if sim_node.get_value() == None:
+                        sim_node.value = []
+                    sim_node.value.append(float(node))
 
     def simulate_mode_dc_sweep(self, args):
         '''
@@ -165,11 +184,21 @@ class spice_schematic:
         dic[args[0]] = slice(convert_num(args[1]), convert_num(args[2]), convert_num(args[3]))
         simulator = self.circuit.simulator(temperature=25, nominal_temperature=25)
         analysis = simulator.dc(**dic)
-        probed_values = list(analysis.nodes['n002'])
-        for i in range(len(probed_values)):
-            probed_values[i] = float(probed_values[i])
-        amplitude = max(probed_values)
-        self.plot_graph('Voltage (n1) vs Voltage(n2)','Voltage[Vn2]','Voltage [Vn1]',amplitude,analysis.nodes['n001'],analysis.nodes['n002'])
+        adj_node_name = None
+        for elem in self.circuit.elements:
+            if (elem.name == args[0]):
+                adj_node_name = str(elem.plus).split()[-1].lower()
+        for key,node in analysis.nodes.items():
+            for sim_node in self.problem_specs.sims:
+                if sim_node.schematic_var_name == str(node):
+                    if sim_node.get_value() == None:
+                        sim_node.value = []
+                    probed_values = list(node)
+                    for i in range(len(probed_values)):
+                        probed_values[i] = float(probed_values[i])
+                    amplitude = max(probed_values)
+                    self.plot_graph('Output Voltage  vs Voltage(Varied)', args[0]+' Varied Voltage [V]', str(node) + ' Output Voltage',amplitude, analysis.nodes[adj_node_name], node)
+                    sim_node.value.append(node)
     
     def simulate_mode_ac_analysis(self, args):
         '''
@@ -190,12 +219,21 @@ class spice_schematic:
         analysis = simulator.ac(start_frequency=convert_num(args[2]), stop_frequency=convert_num(args[3]), number_of_points=convert_num(args[1]),  variation=args[0])
         self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_real,np.real(analysis.nodes['n002']))
         self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_imag,np.imag(analysis.nodes['n002']))
+        for key,node in analysis.nodes.items():
+            for sim_node in self.problem_specs.sims:
+                if sim_node.schematic_var_name == str(node):
+                    if sim_node.get_value() == None:
+                        sim_node.value = []
+                    sim_node.value.append(node)
 
 def parse_schematic_paths_for_problems(container):
     netlists = []
     for problem in container.get_problems():
         netlists.append(spice_schematic(problem.circuit_schematic_path, problem))
     for netlist in netlists:
+        print(netlist.circuit.nodes)
+        # print(netlist.circuit.branches)
+        print(netlist.circuit.elements)
         for i in range(container.get_num_variants()):
             sim_type, sim_args = netlist.fetch_sim_type_and_args()
             netlist.set_param_values_to_components(i)
