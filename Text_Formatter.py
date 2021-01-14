@@ -2,12 +2,18 @@ import Displays
 import Problem_Modifier
 import Parameters
 import re
+import os
 
 def format_text(problems, num_variants):
+
+	#prep the output folder
+	if not os.path.exists("tex"):
+		os.mkdir("tex")
+
 	print("Beginning TeX output formatting");
 	for i in range(num_variants):
-		prob = open("output\problem"+str(i)+".tex","w")
-		soln = open("output\solution"+str(i)+".tex","w")
+		prob = open("tex/problem"+str(i)+".tex","w")
+		soln = open("tex/solution"+str(i)+".tex","w")
 
 
 		#set up the preamble
