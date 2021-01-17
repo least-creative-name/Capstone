@@ -17,6 +17,4 @@ def process_to_pdf(num_variants):
         os.system("pdflatex -interaction -nonstopmode -output-directory "+outfolder+" "+probpath+str(i)+".tex")
         os.system("pdflatex -interaction -nonstopmode -output-directory "+outfolder+" "+solpath+str(i)+".tex")
 
-
-
     print("Done!")

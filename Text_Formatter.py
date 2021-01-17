@@ -30,11 +30,8 @@ def format_text(problems, num_variants):
 		soln.write(r'\usepackage{graphicx}'+ "\n")
 		soln.write(r'\usepackage{parskip}'+ "\n")
 		soln.write(r'\usepackage[margin=1in]{geometry}'+"\n")
-		prob.write(r'\graphicspath{ {./}{../} }'+ "\n")
+		soln.write(r'\graphicspath{ {./}{../} }'+ "\n")
 		soln.write(r'\begin{document}'+ "\n")
-
-
-
 
 		for problem in problems:
 			#make each problem start a new page

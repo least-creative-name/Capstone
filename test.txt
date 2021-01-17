@@ -56,7 +56,9 @@ VAR A2 CALC ((1-[Pb]*(1-[Ps]))*([Pb]*(1-[Ps])))
 VAR A3 CALC ((1-[Pb]*(1-[Ps]))*(1-[Pa]*[Ps]))*(1-(1-[Pb]*(1-[Ps]))*(1-[Pa]*[Ps]))
 VAR P_total CALC ([A1]*[Cx]+[A2]*[Cy]+[A3]*[Cz])*[f]*[VDD]^2 
 VAR P_b CALC [Ps]*([Cz]+[Cx])*[f]*[VDD]^2+(1-[Ps])*([Cz]+[Cy])*[f2]*[VDD]^2
-TEXT For the 2-to-1 multiplexer below, the parasitic capacitance at each node is CX=[Cx], CY=[Cy], and CZ=[Cz], and VDD=[VDD]V  a) Find the dynamic power dissipation, Pswitching1, given that the clock frequency is 2GHz and that the inputs A, B, and S are random, independent variables with probabilities
+TEXT For the 2-to-1 multiplexer below, the parasitic capacitance at each node is CX=[Cx], CY=[Cy], and CZ=[Cz], and VDD=[VDD]V
+IMAGE multiplexer
+TEXT a) Find the dynamic power dissipation, Pswitching1, given that the clock frequency is 2GHz and that the inputs A, B, and S are random, independent variables with probabilities
 TEXT b) Find the dynamic power dissipation,  Pswitching2, if input A is now a 2GHz clock signal, input B is a 1GHz clock from a clock divider circuit, and input S is a random control signal with a probability P(S=1)=[Ps]
 SOLTEXT Pswitching1 is [P_total] uW
 SOLTEXT Pswitching2 is [P_b] uW
