@@ -1,4 +1,5 @@
 import os 
+import re
 class Display:
     # who ever makes output formmatter, they should have overwritten this function
     def get_output():
@@ -27,8 +28,9 @@ class Schematic_Graphical(Display):
         self.show = show
         self.random_flag = 0 
         if(self.random_flag == 0):
-          os.system("icemaker -export ex1.svg " +".\\"+self.schematic_path)  #     os.system("icemaker -export ex1.svg .\sample_asc_files\simple_R_series.asc ")  
-          os.system("inkscape --export-type=png ex1.svg ")
+          image_name = re.sub('asc','svg',self.schematic_path)
+          os.system("icemaker -export "+image_name+" .\\"+self.schematic_path)  #     os.system("icemaker -export ex1.svg .\sample_asc_files\simple_R_series.asc ")  
+          os.system("inkscape --export-type=png " + image_name)
           self.schematic_image_path = "./ex1.png"
           print('added schematic with path '+self.schematic_path+ ' '+str(self.show))       
 
