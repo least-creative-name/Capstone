@@ -3,6 +3,7 @@ TITLE Subtraction
 MARKS 10
 IMAGE circuit_diagram
 SCHEMATIC sample_asc_files/volt_div.sp
+SCHEMATIC sample_asc_files/simple_R_series.asc
 VAR R1 CONST 373
 VAR R2 RAND 1 10
 VAR R3 RANGE 1 2 3 4

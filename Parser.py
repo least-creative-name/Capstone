@@ -126,9 +126,16 @@ def parse_args_and_file(input_file = None, num_variants = None):
                 show = True
                 if(len(data[1:]) == 2):
                     show = bool(data[2])
-                display = Displays.Schematic(file_path, show)
-                problem.add_soldisplay_to_problem(display)
-                problem.set_circuit_schematic_path_and_display(file_path, display)
+                print ("I'm in Displays")
+                if file_path.endswith(".sp"):
+                    display = Displays.Schematic(file_path, show)
+                    problem.add_soldisplay_to_problem(display)
+                    problem.set_circuit_schematic_path_and_display(file_path, display)
+                elif file_path.endswith(".asc"):
+                    display = Displays.Schematic_Graphical(file_path, show)
+                    problem.add_soldisplay_to_problem(display)
+                    problem.set_circuit_graphical_path_and_display(file_path, display)
+
 
             elif (data[0] == 'TEXT'):
                 text = ' '.join(data[1:])
