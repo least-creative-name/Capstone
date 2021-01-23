@@ -1,7 +1,7 @@
 =====
 TITLE Subtraction
 MARKS 10
-IMAGE diagram1.png
+IMAGE circuit_diagram
 SCHEMATIC sample_asc_files/volt_div.sp
 VAR R1 CONST 373
 VAR R2 RAND 1 10
