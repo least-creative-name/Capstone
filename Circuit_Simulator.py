@@ -229,7 +229,8 @@ class spice_schematic:
 def parse_schematic_paths_for_problems(container):
     netlists = []
     for problem in container.get_problems():
-        netlists.append(spice_schematic(problem.circuit_schematic_path, problem))
+        if(problem.circuit_schematic_path != None):
+            netlists.append(spice_schematic(problem.circuit_schematic_path, problem))
     for netlist in netlists:
         print(netlist.circuit.nodes)
         # print(netlist.circuit.branches)

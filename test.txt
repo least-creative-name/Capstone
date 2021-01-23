@@ -2,11 +2,9 @@
 TITLE Subtraction
 MARKS 10
 IMAGE circuit_diagram
-SCHEMATIC schem1.asc
 VAR R1 CONST 373
 VAR R2 RAND 1 10
 VAR R3 RANGE 1 2 3 4
-TOSIM R1 R_1
 VAR hot_pancakes CALC [R1]-[R2]-[R3]
 TEXT subtract [R2], [R3] from [R1].
 TEXT A second line of text
@@ -15,11 +13,9 @@ SOLDISPLAY ALL
 =====
 TITLE Addition
 MARKS 10
-SCHEMATIC schem1.asc
 VAR R1 CONST 373
 VAR R2 RAND 1 10
 VAR R3 RANGE 1 2 3 5
-TOSIM R1 R_1
 VAR french_toast CALC [hot_pancakes]+1
 VAR hot_pancakes CALC [R1]+[R2]+[R3]
 TEXT Sum const:[R1] rand:[R2] range:[R3]
