@@ -132,5 +132,6 @@ dmypy.json
 .vs/
 .vscode/
 
-#output folder
+#output folders
 output/
+tex/

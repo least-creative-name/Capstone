@@ -120,13 +120,14 @@ def parse_args_and_file(input_file = None, num_variants = None):
             elif (data[0] == 'IMAGE'):
                 file_path = data[1]
                 display = Displays.Image(file_path)
+                problem.add_display_to_problem(display)
             elif (data[0] == 'SCHEMATIC'):
                 file_path = data[1]
                 show = True
                 if(len(data[1:]) == 2):
                     show = bool(data[2])
                 display = Displays.Schematic(file_path, show)
-                problem.add_soldisplay_to_problem(display)
+                problem.add_display_to_problem(display)
             elif (data[0] == 'TEXT'):
                 text = ' '.join(data[1:])
                 display = Displays.Text(text)
@@ -138,7 +139,7 @@ def parse_args_and_file(input_file = None, num_variants = None):
             elif (data[0] == 'SOLDISPLAY'):
                 problem.show_solution_all_params(True)
             elif (data[0] == 'TITLE'):
-                title = data[1]
+                title = ' '.join(data[1:])
                 problem.set_title(title)
             elif (data[0] == 'MARKS'):
                 marks = int(data[1])
