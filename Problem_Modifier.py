@@ -76,6 +76,7 @@ class Problem_Specs:
         if not (isinstance(display, Displays.Display)):
             raise TypeError('tried adding display to the problem that wasnt of type display')
         self.problem_displays.append(display)
+        self.solution_displays.append(display)
     
     def add_soldisplay_to_problem(self, display):
         if not (isinstance(display, Displays.Display)):
