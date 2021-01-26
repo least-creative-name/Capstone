@@ -22,7 +22,7 @@ def format_text(problems, num_variants):
 		prob.write(r'\usepackage{graphicx}'+ "\n")
 		prob.write(r'\usepackage{parskip}'+ "\n")
 		prob.write(r'\usepackage[margin=1in]{geometry}'+"\n")
-		prob.write(r'\graphicspath{ {./}{../} }'+ "\n") #TODO, proper image path detection
+		prob.write(r'\graphicspath{ {./}{../}{../sample_svg_files/} }'+ "\n") #TODO, proper image path detection
 		prob.write(r'\begin{document}'+ "\n")
 
 		soln.write(r'\documentclass[12pt, a4paper]{article}'+ "\n")
@@ -30,7 +30,7 @@ def format_text(problems, num_variants):
 		soln.write(r'\usepackage{graphicx}'+ "\n")
 		soln.write(r'\usepackage{parskip}'+ "\n")
 		soln.write(r'\usepackage[margin=1in]{geometry}'+"\n")
-		soln.write(r'\graphicspath{ {./}{../} }'+ "\n")
+		soln.write(r'\graphicspath{ {./}{../}{../sample_svg_files/} }'+ "\n")
 		soln.write(r'\begin{document}'+ "\n")
 
 		for problem in problems:
@@ -57,6 +57,8 @@ def format_text(problems, num_variants):
 					prob.write(formStr + "\n\n") #double newline is a paragraph break, single does nothing
 				elif isinstance(item,Displays.Image):
 					prob.write(r"\includegraphics[width=1\textwidth]{"+item.img_path+"}\n\n")
+				elif isinstance(item,Displays.Schematic_Graphical):
+					prob.write(r"\includegraphics[width=1\textwidth]{"+os.path.splitext(os.path.basename(item.schematic_image_path))[0]+"}\n\n")
 			for item in problem.solution_displays:
 				if isinstance(item,Displays.Text):
 					formStr = item.text
@@ -68,6 +70,8 @@ def format_text(problems, num_variants):
 					soln.write(formStr + "\n\n")
 				elif isinstance(item,Displays.Image):
 					soln.write(r"\includegraphics[width=1\textwidth]{"+item.img_path+"}\n\n")
+				elif isinstance(item,Displays.Schematic_Graphical):
+					soln.write(r"\includegraphics[width=1\textwidth]{"+os.path.splitext(os.path.basename(item.schematic_image_path))[0]+"}\n\n")
 			if problem.display_solution_parameters:
 				soln.write("\nDump of all parameters:\n\n")
 				for key in problem.parameters.keys():
