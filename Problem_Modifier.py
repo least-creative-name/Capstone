@@ -46,6 +46,10 @@ class Problem_Specs:
         self.circuit_schematic_display = None
         # all modified/annotated netlists for each variant
         self.circuit_schematics = None
+        # might consider creating additioanl circuit schematic display objects, 1 for each variant since each display holds 1 path to a modified/annotated ASC file
+        self.circuit_schematic_img_display = None
+        # all modified/annotated netlists for each variant
+        self.circuit_schematic_img_path = None
 
         self.title = None
         self.marks = None
@@ -109,6 +113,16 @@ class Problem_Specs:
             raise TypeError('tried adding display to the problem that wasnt of type display')
         self.circuit_schematic_path = file_path
         self.circuit_schematic_display = display
+
+    def set_circuit_graphical_path_and_display(self, file_path, display):
+            if(type(file_path) != str):
+                raise TypeError('the schematic path assiocated with this problem is not a string')
+            if (self.circuit_schematic_img_path is not None):
+                raise ValueError('multiple schematics have been provided for the same problem, this is not allowed')
+            if not (isinstance(display, Displays.Display)):
+                raise TypeError('tried adding display to the problem that wasnt of type display')
+            self.circuit_schematic_img_path = file_path
+            self.circuit_schematic_img_display = display
 
 
 if __name__ == "__main__":
