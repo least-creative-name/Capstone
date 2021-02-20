@@ -2,8 +2,12 @@ class Formatter:
     def __init__(self):
         self.number_pages = True
         self.generate_title_page = False
-        self.title_text = None
-        self.mark_total = None
+        self.primary_title_text = None
+        self.secondary_title_text = None
+        self.duration = None
+        self.examiner = None
+        self.date = None
+        self.mark_total = False
         self.left_header = None
         self.right_header = None
         self.left_footer = None
@@ -23,17 +27,41 @@ class Formatter:
         self.generate_title_page = show_title_page
         print('setting titles pages flag to '+ str(show_title_page))
         
-    def set_title_text(self, text):
+    def set_primary_title_text(self, text):
         if(type(text) != str):
-            raise TypeError('title text was not string')
-        self.title_text = text
-        print('setting titles to '+ text)
+            raise TypeError('primary title text was not string')
+        self.primary_title_text = text
+        print('setting primary title to '+ text)
         
-    def set_mark_total(self, total_marks):
-        if(type(total_marks) != int):
-            raise TypeError('total marks value was not int')
-        self.mark_total = total_marks
-        print('setting marks to '+ str(total_marks))
+    def set_secondary_title_text(self, text):
+        if(type(text) != str):
+            raise TypeError('secondary title text was not string')
+        self.secondary_title_text = text
+        print('setting secondary title to '+ text)
+        
+    def set_duration(self, text):
+        if(type(text) != str):
+            raise TypeError('duration value was not string')
+        self.duration = text
+        print('setting duration to '+ text)
+        
+    def set_examiner(self, text):
+        if(type(text) != str):
+            raise TypeError('examiner value was not string')
+        self.examiner = text
+        print('setting examiner to '+ text)
+        
+    def set_date(self, text):
+        if(type(text) != str):
+            raise TypeError('date value was not string')
+        self.date = text
+        print('setting date to '+ text)
+        
+    def has_mark_total(self, show_mark_total=False):
+        if(type(show_mark_total) != bool):
+            raise TypeError('total marks flag value was not bool')
+        self.mark_total = show_mark_total
+        print('setting show total marks to '+ str(show_mark_total))
         
     def set_left_header(self, text):
         if(type(text) != str):
