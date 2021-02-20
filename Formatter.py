@@ -7,7 +7,7 @@ class Formatter:
         self.duration = None
         self.examiner = None
         self.date = None
-        self.mark_total = None
+        self.mark_total = False
         self.left_header = None
         self.right_header = None
         self.left_footer = None
@@ -57,11 +57,11 @@ class Formatter:
         self.date = text
         print('setting date to '+ text)
         
-    def set_mark_total(self, total_marks):
-        if(type(total_marks) != int):
-            raise TypeError('total marks value was not int')
-        self.mark_total = total_marks
-        print('setting marks to '+ str(total_marks))
+    def has_mark_total(self, show_mark_total=False):
+        if(type(show_mark_total) != bool):
+            raise TypeError('total marks flag value was not bool')
+        self.mark_total = show_mark_total
+        print('setting show total marks to '+ str(show_mark_total))
         
     def set_left_header(self, text):
         if(type(text) != str):

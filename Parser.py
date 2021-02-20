@@ -107,8 +107,7 @@ def parse_args_and_file(input_file = None, num_variants = None):
                     text = ' '.join(data[1:])
                     formatter.set_date(text)
                 elif(data[0] == 'MARKTOTAL'):
-                    total_marks = int(data[1])
-                    formatter.set_mark_total(total_marks)
+                    formatter.has_mark_total(True)
                 elif(data[0] == 'HEADER_L'):
                     text = ' '.join(data[1:])
                     formatter.set_left_header(text)
