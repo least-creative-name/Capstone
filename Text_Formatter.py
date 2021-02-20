@@ -65,41 +65,64 @@ def format_text(container, num_variants):
 
 		#title page elements
 		if container.formatter.generate_title_page:
-			if container.formatter.title_text:
-				prob.write(r'\section*{\centering '+container.formatter.title_text+'}'+"\n")
-				soln.write(r'\section*{\centering '+container.formatter.title_text+'}'+"\n")
+			if container.formatter.primary_title_text:
+				prob.write(r'\section*{\centering '+container.formatter.primary_title_text+'}'+"\n")
+				soln.write(r'\section*{\centering '+container.formatter.primary_title_text+'}'+"\n")
+
+			if container.formatter.secondary_title_text:
+				prob.write(r'\section*{\centering '+container.formatter.secondary_title_text+'}'+"\n")
+				soln.write(r'\section*{\centering '+container.formatter.secondary_title_text+'}'+"\n")
+
+
+			prob.write(r'\begin{center}'+"\n")
+			soln.write(r'\begin{center}'+"\n")
+			if container.formatter.examiner: 
+				prob.write(r'Examiner: '+container.formatter.examiner+r'\\'+"\n")
+				soln.write(r'Examiner: '+container.formatter.examiner+r'\\'+"\n")
+
+			if container.formatter.date: 
+				prob.write(container.formatter.date+r'\\'+"\n")
+				soln.write(container.formatter.date+r'\\'+"\n")
+
+			if container.formatter.duration: 
+				prob.write(r'\textbf{'+container.formatter.duration+'}'+r'\\'+"\n")
+				soln.write(r'\textbf{'+container.formatter.duration+'}'+r'\\'+"\n")
+
+			prob.write(r'\end{center}'+"\n")
+			soln.write(r'\end{center}'+"\n")
+
 
 			#rest of title elements go here
 
 			#name/student number fields (latex doesn't care for newlines, lets make life easier)
 			prob.write(r'\bigskip\begin{minipage}{.5\textwidth}\begin{large}Last Name: \hrulefill\\ \\First Name: \hrulefill\\ \\Student \#: \hrulefill\end{large}\end{minipage}'+"\n")
 			soln.write(r'\bigskip\begin{minipage}{.5\textwidth}\begin{large}Last Name: \hrulefill\\ \\First Name: \hrulefill\\ \\Student \#: \hrulefill\end{large}\end{minipage}'+"\n")
+			if container.formatter.mark_total:
+				#mark total
+				prob.write(r'\flushright\begin{minipage}{.5\textwidth}\centering\setcellgapes{4pt}\makegapedcells\begin{tabularx}{0.8\textwidth} { | >{\raggedright\arraybackslash}X | >{\raggedleft\arraybackslash}X | }\hline'+"\n")
+				soln.write(r'\flushright\begin{minipage}{.5\textwidth}\centering\setcellgapes{4pt}\makegapedcells\begin{tabularx}{0.8\textwidth} { | >{\raggedright\arraybackslash}X | >{\raggedleft\arraybackslash}X | }\hline'+"\n")
 
-			#mark total
-			prob.write(r'\flushright\begin{minipage}{.5\textwidth}\centering\setcellgapes{4pt}\makegapedcells\begin{tabularx}{0.8\textwidth} { | >{\raggedright\arraybackslash}X | >{\raggedleft\arraybackslash}X | }\hline'+"\n")
-			soln.write(r'\flushright\begin{minipage}{.5\textwidth}\centering\setcellgapes{4pt}\makegapedcells\begin{tabularx}{0.8\textwidth} { | >{\raggedright\arraybackslash}X | >{\raggedleft\arraybackslash}X | }\hline'+"\n")
+				markSum = 0
+				probNum = 1
+				for problem in container.get_problems():
+					prob.write("Q"+str(probNum)+" & ")
+					soln.write("Q"+str(probNum)+" & ")
+					probNum+=1
 
-			markSum = 0
-			probNum = 1
-			for problem in container.get_problems():
-				prob.write("Q"+str(probNum)+" & ")
-				soln.write("Q"+str(probNum)+" & ")
-				probNum+=1
+					if problem.marks: 
+						markSum += problem.marks
+						prob.write("/"+str(problem.marks))
+						soln.write("/"+str(problem.marks))
 
-				if problem.marks: 
-					markSum += problem.marks
-					prob.write("/"+str(problem.marks))
-					soln.write("/"+str(problem.marks))
+					prob.write(r' \\ \hline'+"\n")
+					soln.write(r' \\ \hline'+"\n")
 
-				prob.write(r' \\ \hline'+"\n")
-				soln.write(r' \\ \hline'+"\n")
+				if markSum > 0:
+					prob.write(r'\textbf{Total} & \textbf{/'+str(markSum)+r'} \\ \hline' + "\n")
+					soln.write(r'\textbf{Total} & \textbf{/'+str(markSum)+r'} \\ \hline' + "\n")
 
-			if markSum > 0:
-				prob.write(r'\textbf{Total} & \textbf{/'+str(markSum)+r'} \\ \hline' + "\n")
-				soln.write(r'\textbf{Total} & \textbf{/'+str(markSum)+r'} \\ \hline' + "\n")
-
-			prob.write(r'\end{tabularx}\end{minipage}'+"\n")
-			soln.write(r'\end{tabularx}\end{minipage}'+"\n")
+				prob.write(r'\end{tabularx}\end{minipage}'+"\n")
+				soln.write(r'\end{tabularx}\end{minipage}'+"\n")
 
 			#restore the left align
 			prob.write(r'\flushleft'+"\n")

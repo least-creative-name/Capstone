@@ -1,5 +1,10 @@
 TITLEPAGE
-TITLETEXT Test Problem Set
+MARKTOTAL
+TITLETEXT1 ECE999 - Course Name
+TITLETEXT2 Test Problem Set
+DURATION 30 minutes
+EXAMINER fakename joe
+DATE this is really just arbitrary text
 =====
 TITLE Subtraction
 MARKS 10
