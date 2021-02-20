@@ -14,5 +14,6 @@ VAR hot_pancakes CALC [R1]-[R2]-[R3]
 TEXT subtract [R2], [R3] from [R1].
 TEXT A second line of text
 SOLTEXT solution is [hot_pancakes]
+SOLTEXT temp 2 is: [temp2]
 SOLDISPLAY ALL
 =====
