@@ -91,9 +91,21 @@ def parse_args_and_file(input_file = None, num_variants = None):
                     formatter.has_numbebered_pages(False)
                 elif(data[0] == 'TITLEPAGE'):
                     formatter.has_title_page(True)
-                elif(data[0] == 'TITLETEXT'):
+                elif(data[0] == 'TITLETEXT1'):
                     text = ' '.join(data[1:])
-                    formatter.set_title_text(text)
+                    formatter.set_primary_title_text(text)
+                elif(data[0] == 'TITLETEXT2'):
+                    text = ' '.join(data[1:])
+                    formatter.set_secondary_title_text(text)
+                elif(data[0] == 'DURATION'):
+                    text = ' '.join(data[1:])
+                    formatter.set_duration(text)
+                elif(data[0] == 'EXAMINER'):
+                    text = ' '.join(data[1:])
+                    formatter.set_examiner(text)
+                elif(data[0] == 'DATE'):
+                    text = ' '.join(data[1:])
+                    formatter.set_date(text)
                 elif(data[0] == 'MARKTOTAL'):
                     total_marks = int(data[1])
                     formatter.set_mark_total(total_marks)
