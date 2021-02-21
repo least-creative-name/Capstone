@@ -7,6 +7,8 @@ from PySpice.Spice.Parser import SpiceParser
 from PySpice.Probe.Plot import plot
 import matplotlib.pyplot as plt
 from inspect import getmembers, isfunction
+import os
+import glob
 
 def isfloat(x):
     try:
@@ -65,7 +67,7 @@ class spice_schematic:
         for var_name, schematic_name in self.problem_specs.sim_mappings.items():
             self.set_component_value(self.circuit[schematic_name], self.problem_specs.parameters[var_name].get_value()[variant])
 
-    def plot_graph(self,title,x_label,y_label,amplitude,analyse_value,analyse_value_2 = None):
+    def plot_graph(self,title,x_label,y_label,amplitude,analyse_value,analyse_value_2 = None,i=-1):
         '''
         Function to plot graphs 
         '''
@@ -82,9 +84,9 @@ class spice_schematic:
         ax.legend(('input', 'output'), loc=(.05,.1))
         ax.set_ylim(float(-amplitude*1.1), float(amplitude*1.1))
         plt.tight_layout()
-        plt.show()
+        plt.savefig('./simulation/images/'+self.problem_specs.title+'_'+str(i)+'.png')
     
-    def simulate_mode_dc_op(self):
+    def simulate_mode_dc_op(self,i):
         '''
         Computes the DC operating point treating 
         capacitors as open cicuits and inductors
@@ -92,22 +94,26 @@ class spice_schematic:
         '''
         simulator = self.circuit.simulator(temperature=25, nominal_temperature=25)
         analysis = simulator.operating_point()
+        with open('./simulation/text/out.txt', 'a+') as f:
+          print("===================This is variant "+str(i)+" "+str(self.problem_specs.title)+" ==================== ",file=f)
         for node in analysis.nodes.values(): 
-            print('Node {}: {:4.3f} V'.format(str(node), float(node)))
-            for sim_node in self.problem_specs.sims:
-                if sim_node.schematic_var_name == str(node):
-                    if sim_node.get_value() == None:
-                        sim_node.value = []
-                    sim_node.value.append(float(node))
+            with open('./simulation/text/out.txt', 'a+') as f:
+                print('Node {}: {:4.3f} V'.format(str(node), float(node)),file=f)
+                for sim_node in self.problem_specs.sims:
+                    if sim_node.schematic_var_name == str(node):
+                        if sim_node.get_value() == None:
+                            sim_node.value = []
+                        sim_node.value.append(float(node))
         for branch in analysis.branches.values(): 
-            print('Branch {}: {:5.3f} A'.format(str(branch), float(branch)))
-            for sim_branch in self.problem_specs.sims:
-                if sim_branch.schematic_var_name == str(branch):
-                    if sim_branch.get_value() == None:
-                        sim_branch.value = []
-                    sim_branch.value.append(float(branch))
+            with open('./simulation/text/out.txt', 'a+') as f:
+                print('Branch {}: {:5.3f} A'.format(str(branch), float(branch)),file=f)
+                for sim_branch in self.problem_specs.sims:
+                    if sim_branch.schematic_var_name == str(branch):
+                        if sim_branch.get_value() == None:
+                            sim_branch.value = []
+                        sim_branch.value.append(float(branch))
 
-    def simulate_mode_transient(self, args):
+    def simulate_mode_transient(self, args,j):
         '''
         Performs Non Linear time domain simulations
         '''
@@ -148,10 +154,10 @@ class spice_schematic:
                     for i in range(len(probed_values)):
                         probed_values[i] = float(probed_values[i])
                     amplitude = max(probed_values)
-                    self.plot_graph( str(node) + ' Voltage  vs Time', 'Time [s]', str(node) + ' Voltage [V]',amplitude,node)
+                    self.plot_graph( str(node) + ' Voltage  vs Time', 'Time [s]', str(node) + ' Voltage [V]',amplitude,node,j)
                     sim_node.value.append(node)
 
-    def simulate_mode_dc_transfer(self, args):
+    def simulate_mode_dc_transfer(self, args,i):
         '''
         Find DC small signal transfer function
         '''
@@ -159,15 +165,18 @@ class spice_schematic:
             raise ValueError('gave faulty parameters for simulation')
         simulator = self.circuit.simulator(temperature=25, nominal_temperature=25)
         analysis = simulator.transfer_function(outvar=args[0],insrc=args[1])
+        with open('./simulation/text/out.txt', 'a+') as f:
+          print("===================This is variant "+str(i)+" "+str(self.problem_specs.title)+" ==================== ",file=f)
         for node in analysis.nodes.values(): 
-            print('Node {}: {:4.3f} '.format(str(node), float(node)))
+            with open('./simulation/text/out.txt', 'a+') as f:
+                print('Node {}: {:4.3f} '.format(str(node), float(node)),file=f)
             for sim_node in self.problem_specs.sims:
                 if sim_node.schematic_var_name == str(node):
                     if sim_node.get_value() == None:
                         sim_node.value = []
                     sim_node.value.append(float(node))
 
-    def simulate_mode_dc_sweep(self, args):
+    def simulate_mode_dc_sweep(self, args,j):
         '''
         Computes the DC operating point of a circuit 
         while stepping independent sources and treating 
@@ -197,10 +206,10 @@ class spice_schematic:
                     for i in range(len(probed_values)):
                         probed_values[i] = float(probed_values[i])
                     amplitude = max(probed_values)
-                    self.plot_graph('Output Voltage  vs Voltage(Varied)', args[0]+' Varied Voltage [V]', str(node) + ' Output Voltage',amplitude, analysis.nodes[adj_node_name], node)
+                    self.plot_graph('Output Voltage  vs Voltage(Varied)', args[0]+' Varied Voltage [V]', str(node) + ' Output Voltage',amplitude, analysis.nodes[adj_node_name], node,j)
                     sim_node.value.append(node)
     
-    def simulate_mode_ac_analysis(self, args):
+    def simulate_mode_ac_analysis(self, args,j):
         '''
         Computes the small signal AC behaviour of the 
         circuit linearied about its DC operating point 
@@ -217,8 +226,8 @@ class spice_schematic:
         amplitude_real = 2
         simulator = self.circuit.simulator(temperature=25, nominal_temperature=25)
         analysis = simulator.ac(start_frequency=convert_num(args[2]), stop_frequency=convert_num(args[3]), number_of_points=convert_num(args[1]),  variation=args[0])
-        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_real,np.real(analysis.nodes['n002']))
-        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_imag,np.imag(analysis.nodes['n002']))
+        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_real,np.real(analysis.nodes['n002']),j)
+        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_imag,np.imag(analysis.nodes['n002']),j)
         for key,node in analysis.nodes.items():
             for sim_node in self.problem_specs.sims:
                 if sim_node.schematic_var_name == str(node):
@@ -228,6 +237,11 @@ class spice_schematic:
 
 def parse_schematic_paths_for_problems(container):
     netlists = []
+    files = glob.glob('./simulation/images/*')
+    for f in files:
+        os.remove(f)
+    with open('./simulation/text/out.txt', 'r+') as f:
+        f.truncate(0)
     for problem in container.get_problems():
         if(problem.circuit_schematic_path != None):
             netlists.append(spice_schematic(problem.circuit_schematic_path, problem))
@@ -239,15 +253,15 @@ def parse_schematic_paths_for_problems(container):
             sim_type, sim_args = netlist.fetch_sim_type_and_args()
             netlist.set_param_values_to_components(i)
             if(sim_type == '.op'):
-                netlist.simulate_mode_dc_op()
+                netlist.simulate_mode_dc_op(i)
             elif(sim_type == '.tran'):
-                netlist.simulate_mode_transient(sim_args)
+                netlist.simulate_mode_transient(sim_args,i)
             elif(sim_type == '.tf'):
-                netlist.simulate_mode_dc_transfer(sim_args)
+                netlist.simulate_mode_dc_transfer(sim_args,i)
             elif(sim_type == '.dc'):
-                netlist.simulate_mode_dc_sweep(sim_args)
+                netlist.simulate_mode_dc_sweep(sim_args,i)
             elif(sim_type == '.ac'):
-                netlist.simulate_mode_ac_analysis(sim_args)
+                netlist.simulate_mode_ac_analysis(sim_args,i)
             else:
                 raise ValueError("simulation file has unknown simulation type")
 
