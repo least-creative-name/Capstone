@@ -67,7 +67,7 @@ class spice_schematic:
         for var_name, schematic_name in self.problem_specs.sim_mappings.items():
             self.set_component_value(self.circuit[schematic_name], self.problem_specs.parameters[var_name].get_value()[variant])
 
-    def plot_graph(self,title,x_label,y_label,amplitude,analyse_value,analyse_value_2 = None,i=-1):
+    def plot_graph(self,title,x_label,y_label,amplitude,analyse_value, node_name,i=-1, analyse_value_2 = None):
         '''
         Function to plot graphs 
         '''
@@ -84,7 +84,9 @@ class spice_schematic:
         ax.legend(('input', 'output'), loc=(.05,.1))
         ax.set_ylim(float(-amplitude*1.1), float(amplitude*1.1))
         plt.tight_layout()
-        plt.savefig('./simulation/images/'+self.problem_specs.title+'_'+str(i)+'.png')
+        figure_img_path = './simulation/images/'+self.problem_specs.title+'_'+node_name+'_'+str(i)+'.png'
+        plt.savefig(figure_img_path)
+        return figure_img_path
     
     def simulate_mode_dc_op(self,i):
         '''
@@ -154,8 +156,9 @@ class spice_schematic:
                     for i in range(len(probed_values)):
                         probed_values[i] = float(probed_values[i])
                     amplitude = max(probed_values)
-                    self.plot_graph( str(node) + ' Voltage  vs Time', 'Time [s]', str(node) + ' Voltage [V]',amplitude,node,j)
+                    img_path = self.plot_graph( str(node) + ' Voltage  vs Time', 'Time [s]', str(node) + ' Voltage [V]',amplitude,node, str(node),j)
                     sim_node.value.append(node)
+                    sim_node.add_image(img_path)
 
     def simulate_mode_dc_transfer(self, args,i):
         '''
@@ -206,8 +209,9 @@ class spice_schematic:
                     for i in range(len(probed_values)):
                         probed_values[i] = float(probed_values[i])
                     amplitude = max(probed_values)
-                    self.plot_graph('Output Voltage  vs Voltage(Varied)', args[0]+' Varied Voltage [V]', str(node) + ' Output Voltage',amplitude, analysis.nodes[adj_node_name], node,j)
+                    img_path = self.plot_graph('Output Voltage  vs Voltage(Varied)', args[0]+' Varied Voltage [V]', str(node) + ' Output Voltage',amplitude, analysis.nodes[adj_node_name], str(node),j, node)
                     sim_node.value.append(node)
+                    sim_node.add_image(img_path)
     
     def simulate_mode_ac_analysis(self, args,j):
         '''
@@ -226,8 +230,8 @@ class spice_schematic:
         amplitude_real = 2
         simulator = self.circuit.simulator(temperature=25, nominal_temperature=25)
         analysis = simulator.ac(start_frequency=convert_num(args[2]), stop_frequency=convert_num(args[3]), number_of_points=convert_num(args[1]),  variation=args[0])
-        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_real,np.real(analysis.nodes['n002']),j)
-        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_imag,np.imag(analysis.nodes['n002']),j)
+        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_real,np.real(analysis.nodes['n002']), 'n002',j)
+        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_imag,np.imag(analysis.nodes['n002']), 'n002',j)
         for key,node in analysis.nodes.items():
             for sim_node in self.problem_specs.sims:
                 if sim_node.schematic_var_name == str(node):

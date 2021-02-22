@@ -63,6 +63,17 @@ class Sim(Parameter):
             raise TypeError('A parameter called '+self.name+' was given an invalid list of values of '+ str(schematic_var_name))
         self.schematic_var_name = schematic_var_name
         print('created sim '+name+' '+self.schematic_var_name)
+        self.val_is_image = False
+        self.plot_img_paths = None
+
+    def add_image(self, img_path):
+        self.val_is_image = True
+        if self.plot_img_paths == None:
+            self.plot_img_paths = []
+        self.plot_img_paths.append(img_path)
+
+    def is_image(self):
+        return self.val_is_image
 
 if __name__ == "__main__":
     print('why is this being run LOL?')

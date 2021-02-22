@@ -170,6 +170,10 @@ def format_text(container, num_variants):
 			if problem.display_solution_parameters:
 				soln.write("\nDump of all parameters:\n\n")
 				for key in problem.parameters.keys():
+					if isinstance(problem.parameters[key], Parameters.Sim):
+						if problem.parameters[key].is_image():
+							soln.write(r"\includegraphics[width=1\textwidth]{"+problem.parameters[key].plot_img_paths[i]+"}\n\n")
+							continue
 					# format as "verbatim" mostly because underscores are macro for subscript (consider modifying to escape via \_ instead)
 					soln.write(r"\verb|"+problem.parameters[key].get_name() +" : "+str(problem.parameters[key].value[i]) + "|\n\n")
 			prob.write("\n")
