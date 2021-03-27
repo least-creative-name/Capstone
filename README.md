@@ -59,7 +59,7 @@ the _TOSIM_ keyword then simulates the relevant variables . More details are men
 To run the tool use the below command <br />
   `python problem_set_generator.py -input input_file.txt -num_variants ###`
 
-###  _4. Relevant outputs_ .
+###  _4. Relevant output files_ .
 * The simulation outputs text and images can be found in the /simlation directory of the repo
 * The PDF random problem sets generated can be found in /output directory of the repository 
 * The corresponding PDF solutions to the problem sets can be found in /output directory of the repository
