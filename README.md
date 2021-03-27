@@ -15,7 +15,7 @@ Below is a list of tools and links to their installations needed to support indi
 * [Ngspice](http://ngspice.sourceforge.net/docs.html)
 * [Icewire](https://icewire.ca/)
 * [Inkscape](https://inkscape.org/)  
-* [TexLive or other LaTEX distribution -2020 release](https://www.tug.org/texlive/)
+* [TexLive or other LaTEX distribution](https://www.tug.org/texlive/)
 
 OS supported
 * Windows (recommended)
@@ -33,9 +33,11 @@ account for approximations and differences in the way the course is conducted. T
 or saved as images in the simulation directory.
 
 #### Sample Input files  
+Without simulation
+![Without simulation](https://github.com/least-creative-name/Capstone/blob/main/Readme_img_02.JPG?raw=true)
 
-
-
+With simulation
+![With simulation](https://github.com/least-creative-name/Capstone/blob/main/Readme_img_01.JPG?raw=true)
 
 
 ### External Links and resources 
