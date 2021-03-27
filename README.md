@@ -19,7 +19,7 @@ Below is a list of tools and links to their installations needed to support indi
 
 OS supported
 * Windows (recommended)
-* Linux (Ubuntu 18.0)
+* Linux (Ubuntu 18.04)
 
 Python version - 3.8.0 + (recommended)<br />
 Also works with latest [Anaconda](https://www.anaconda.com/products/individual) distribution 
