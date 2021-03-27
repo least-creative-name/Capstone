@@ -1,7 +1,7 @@
 ## Electronics Problem Set Generator - ECE496
 This tool genereates multiple variants of a problem sets for electronics courses given a base input file 
 
-### Installation Guide 
+### Installation  
 To clone this repository use the below command 
 
 `git clone https://github.com/least-creative-name/Capstone.git`
@@ -60,7 +60,7 @@ To run the tool use the below command <br />
   `python problem_set_generator.py -input input_file.txt -num_variants ###`
 
 ###  _4. Relevant output files_ .
-* The simulation outputs text and images can be found in the /simlation directory of the repo
+* The simulation outputs text and images can be found in the /simulation directory of the repo
 * The PDF random problem sets generated can be found in /output directory of the repository 
 * The corresponding PDF solutions to the problem sets can be found in /output directory of the repository
 
@@ -73,6 +73,13 @@ To run the tool use the below command <br />
 
 
 ### Future Improvements
+Future improvements to the design include support for : 
+* solving systems of equations
+* current probing via the simulator
+* automated analysis of simulation results
+* modifications to the input specification
+* unique images per variant 
 
-
-### Credits
+### Credits 
+Prof Tony Chan Carusone <br \>
+Univerity Of Toronto
