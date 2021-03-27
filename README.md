@@ -13,6 +13,12 @@ OS supported
 * Linux (Ubuntu 18.0)
 
 ### Installation Guide 
+To clone this repository use the below command 
+
+`git clone https://github.com/least-creative-name/Capstone.git`
+
+Seperate installations are needed for the individual packagages needed to support the project.<br />
+The necessary prerequisites are listed in the next saction along with links to their installations. 
 
 ### Usage
 
