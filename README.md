@@ -23,7 +23,7 @@ OS supported
 ### Usage
 Once the above listed prerequisites have been installed Follow the below steps to generate multiple variants 
 
-### 1. Creating base input file .
+### _1. Creating base input file_ .
 Create the problem specification file specifying the questions to be randomized along with the relevant formatting details
 A specification for the template can be found in this repository. 
 
