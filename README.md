@@ -12,7 +12,7 @@ The necessary prerequisites are listed in the next saction along with links to t
 Below is a list of tools and links to their installations needed to support individual functionality relating to this project :  
 * [Pyspice v1.3 or up](https://pyspice.fabrice-salvaire.fr/releases/v1.3/)
 * [Ngspice](http://ngspice.sourceforge.net/docs.html)
-* [Icewire](https://icewire.ca/installation)
+* [Icewire](https://icewire.ca/)
 * [Inkscape](https://inkscape.org/)  
 * [TexLive or other LaTEX distribution -2020 release](https://www.tug.org/texlive/)
 
