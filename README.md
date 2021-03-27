@@ -7,9 +7,11 @@ Below is a list of tools needed to support individual functionality relating to 
 * [Icewire](https://icewire.ca/installation)
 * [Inkscape](https://inkscape.org/)  
 * [TexLive or other LaTEX distribution -2020 release](https://www.tug.org/texlive/)
+
 OS supported
 * Windows (recommended)
 * Linux (Ubuntu 18.0)
+
 ### Installation Guide 
 
 ### Usage
