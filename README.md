@@ -22,7 +22,7 @@ OS supported
 * Linux (Ubuntu 18.0)
 
 Python version - 3.8.0 + (recommended)<br />
-Also works with latest Anaconda distribution 
+Also works with latest [Anaconda](https://www.anaconda.com/products/individual) distribution 
 
 ### Usage
 Once the above listed prerequisites have been installed Follow the below steps to generate multiple variants 
