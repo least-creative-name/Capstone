@@ -39,6 +39,8 @@ No simulation : <br />
 With simulation : <br />
 ![With simulation](https://github.com/least-creative-name/Capstone/blob/main/Readme_img_01.JPG?raw=true)
 
+The relevant specifics/details on the base file creation and functions supported are provided in the input specification file 
+that is attached with this repository
 
 ### External Links and resources 
 
