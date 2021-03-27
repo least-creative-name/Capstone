@@ -81,5 +81,5 @@ Future improvements to the design include support for :
 * unique images per variant 
 
 ### Credits 
-Prof Tony Chan Carusone <br \>
+Prof. Tony Chan Carusone <br />
 Univerity Of Toronto
