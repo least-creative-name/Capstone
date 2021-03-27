@@ -6,8 +6,8 @@ To clone this repository use the below command
 
 `git clone https://github.com/least-creative-name/Capstone.git`
 
-Seperate installations are needed for the individual packagages needed to support the project.<br />
-The necessary prerequisites are listed in the next saction along with links to their installations. 
+Seperate installations are needed for the individual packaages needed to support the project.<br />
+The necessary prerequisites are listed in the next section along with links to their installations. 
 
 ### Prerequisites 
 Below is a list of tools and links to their installations needed to support individual functionality relating to this project :  
