@@ -48,7 +48,7 @@ that is attached with this repository
 
 ### _2. Create spice schematic (Optional)_ .
 Start by going into LTspice or any other spice simulation software and create the necessary netlist file to be verified 
-corresponding to given problem. 
+corresponding to given problem.(.sp Documentaton [here](https://ecee.colorado.edu/~mathys/ecen1400/pdf/scad3.pdf)) 
 From here we need to generate two files which are the .sp and .asc schematic files. 
 
 These two files are then pointed to in the base input file using the _SCHEMATIC_ keyword as shown [here](https://github.com/least-creative-name/Capstone/blob/main/Readme_img_01.JPG?raw=true)
