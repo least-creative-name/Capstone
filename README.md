@@ -20,6 +20,10 @@ Below is a list of tools and links to their installations needed to support indi
 OS supported
 * Windows (recommended)
 * Linux (Ubuntu 18.0)
+
+Python version - 3.8.0 + (recommended)<br />
+Also works with latest Anaconda distribution 
+
 ### Usage
 Once the above listed prerequisites have been installed Follow the below steps to generate multiple variants 
 
