@@ -51,9 +51,9 @@ Start by going into LTspice or any other spice simulation software and create th
 corresponding to given problem. 
 From here we need to generate two files which are the .sp and .asc schematic files. 
 
-These two files are then pointed to in the base input file using the SCHEMATIC keyword as shown [here](https://github.com/least-creative-name/Capstone/blob/main/Readme_img_01.JPG?raw=true)
+These two files are then pointed to in the base input file using the _SCHEMATIC_ keyword as shown [here](https://github.com/least-creative-name/Capstone/blob/main/Readme_img_01.JPG?raw=true)
 
-the TOSIM keyword then simulates the relevant variables . More details are mentioned in the input specification guide
+the _TOSIM_ keyword then simulates the relevant variables . More details are mentioned in the input specification guide
 
 ### External Links and resources 
 
