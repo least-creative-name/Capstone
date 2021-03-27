@@ -1,4 +1,5 @@
 ## Electronics Problem Set Generator - ECE496
+This tool genereates multiple variants of a problem sets for electronics courses given a base input file 
 
 ### Installation Guide 
 To clone this repository use the below command 
@@ -20,6 +21,22 @@ OS supported
 * Windows (recommended)
 * Linux (Ubuntu 18.0)
 ### Usage
+Once the above listed prerequisites have been installed Follow the below steps to generate multiple variants 
+
+### Step 1.
+Create the problem specification file specifying the questions to be randomized along with the relevant formatting details
+A specification for the template can be found in this repository. 
+
+A sample input file is attached below . We have one input file for regular questions and another to showcase simulator input.
+Note that the simulator input is only intended as a verification tool and not intended to produce solutions as these may or may not 
+account for approximations and differences in the way the course is conducted. The outputs from the simulator are piped to and output file 
+or saved as images in the simulation directory.
+
+#### Sample Input files  
+
+
+
+
 
 ### External Links and resources 
 
