@@ -1,9 +1,5 @@
 ## Electronics Problem Set Generator - ECE496
 
-OS supported
-* Windows (recommended)
-* Linux (Ubuntu 18.0)
-
 ### Installation Guide 
 To clone this repository use the below command 
 
@@ -20,6 +16,9 @@ Below is a list of tools and links to their installations needed to support indi
 * [Inkscape](https://inkscape.org/)  
 * [TexLive or other LaTEX distribution -2020 release](https://www.tug.org/texlive/)
 
+OS supported
+* Windows (recommended)
+* Linux (Ubuntu 18.0)
 ### Usage
 
 ### External Links and resources 
