@@ -1,2 +1,11 @@
-# Capstone
-This is our ece496 project
+## Electronics Problem Set Generator 
+
+### Prerequisites
+
+### Installation Guide 
+
+### Usage
+
+### External Links and resources 
+
+### Future Improvement 
