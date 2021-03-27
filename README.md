@@ -43,8 +43,17 @@ No simulation : <br />
 With simulation : <br />
 ![With simulation](https://github.com/least-creative-name/Capstone/blob/main/Readme_img_01.JPG?raw=true)
 
-The relevant specifics/details on the base file creation and functions supported are provided in the input specification file 
+The relevant specifics/details on the base file creation and functions supported are provided in the input specification guide 
 that is attached with this repository
+
+### _2. Create spice schematic (Optional)_ .
+Start by going into LTspice or any other spice simulation software and create the necessary netlist file to be verified 
+corresponding to given problem. 
+From here we need to generate two files which are the .sp and .asc schematic files. 
+
+These two files are then pointed to in the base input file using the SCHEMATIC keyword
+
+the TOSIM keyword then simulates the relevant variables . More details are mentioned in the input specification guide
 
 ### External Links and resources 
 
