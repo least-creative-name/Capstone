@@ -15,7 +15,7 @@ Below is a list of tools and links to their installations needed to support indi
 * [Ngspice](http://ngspice.sourceforge.net/docs.html)
 * [Icewire](https://icewire.ca/)
 * [Inkscape](https://inkscape.org/)  
-* [TexLive or other LaTEX distribution](https://www.tug.org/texlive/)
+* [TexLive or other LaTeX distribution](https://www.tug.org/texlive/)
 
 OS supported
 * Windows (recommended)
@@ -69,7 +69,7 @@ To run the tool use the below command <br />
 * [Spice Manual](https://ecee.colorado.edu/~mathys/ecen1400/pdf/scad3.pdf) 
 * [Icewire](https://icewire.ca/documentation)
 * [Pyspice](https://pyspice.fabrice-salvaire.fr/pages/documentation.html)
-* [LaTEX](https://www.latex-project.org/)
+* [LaTeX](https://www.latex-project.org/)
 
 
 ### Future Improvements
