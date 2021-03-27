@@ -66,5 +66,13 @@ To run the tool use the below command <br />
 
 
 ### External Links and resources 
+* [Spice Manual](https://ecee.colorado.edu/~mathys/ecen1400/pdf/scad3.pdf) 
+* [Icewire](https://icewire.ca/documentation)
+* [Pyspice](https://pyspice.fabrice-salvaire.fr/pages/documentation.html)
+* [LaTEX](https://www.latex-project.org/)
 
-### Future Improvement 
+
+### Future Improvements
+
+
+### Credits
