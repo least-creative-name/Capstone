@@ -57,7 +57,7 @@ the _TOSIM_ keyword then simulates the relevant variables . More details are men
 
 ###  _3. Run the tool_ .
 To run the tool use the below command 
-  python3.8 problem_set_generator.py -input input_file.txt -num_variants ###
+  `python3.8 problem_set_generator.py -input input_file.txt -num_variants ###`
 
 
 
