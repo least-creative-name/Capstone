@@ -33,10 +33,10 @@ account for approximations and differences in the way the course is conducted. T
 or saved as images in the simulation directory.
 
 #### Sample Input files  
-Without simulation
+No simulation : <br />
 ![Without simulation](https://github.com/least-creative-name/Capstone/blob/main/Readme_img_02.JPG?raw=true)
 
-With simulation
+With simulation : <br />
 ![With simulation](https://github.com/least-creative-name/Capstone/blob/main/Readme_img_01.JPG?raw=true)
 
 
