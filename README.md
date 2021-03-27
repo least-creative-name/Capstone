@@ -56,8 +56,8 @@ These two files are then pointed to in the base input file using the _SCHEMATIC_
 the _TOSIM_ keyword then simulates the relevant variables . More details are mentioned in the input specification guide
 
 ###  _3. Run the tool_ .
-To run the tool use the below command 
-  `python3.8 problem_set_generator.py -input input_file.txt -num_variants ###`
+To run the tool use the below command <br />
+  `python problem_set_generator.py -input input_file.txt -num_variants ###`
 
 
 
