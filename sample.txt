@@ -2,14 +2,14 @@
 TITLE Subtraction
 MARKS 10
 IMAGE circuit_diagram
-SCHEMATIC sample_asc_files/volt_div.sp
+SCHEMATIC sample_asc_files/RC_example.sp
 SCHEMATIC sample_asc_files/simple_R_series.asc
 VAR R1 CONST 373
 VAR R2 RAND 1 10
 VAR R3 RANGE 1 2 3 4
 VAR temp SIM n002
 VAR temp2 SIM n001
-TOSIM R2 R_1
+TOSIM R1 R1
 VAR hot_pancakes CALC [R1]-[R2]-[R3]
 TEXT subtract [R2], [R3] from [R1].
 TEXT A second line of text
