@@ -83,6 +83,7 @@ SOLDISPLAY ALL
 =====
 TITLE Voltage Divider Trend Scenario
 MARKS 5
+TEXT Draw a graph representing how a voltage divider voltage reading would vary as the voltage source value gets changed. Let R1 be [R1]. Let R2 be [R2]. Let the voltage value range from 0 volts to 20 volts.
 SCHEMATIC sample_asc_files/volt_div.sp
 SCHEMATIC sample_asc_files/simple_R_series.asc
 VAR R1 CONST 2
@@ -90,6 +91,6 @@ VAR R2 RAND 1 10
 VAR result SIM n002
 TOSIM R1 R_1
 TOSIM R2 R_2
-TEXT Draw a graph representing how a voltage divider voltage reading would vary as the voltage source value gets changed. Let R1 be [R1]. Let R2 be [R2]. Let the voltage value range from 0 volts to 20 volts.
-SOLDISPLAY ALL
+SOLTEXT The graph is [result]
+SOLTEXT Ensure the slope matches
 =====

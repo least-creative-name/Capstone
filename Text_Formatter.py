@@ -161,6 +161,10 @@ def format_text(container, num_variants):
 					paramList = set(re.findall("\[([^\[\]]+)\]", formStr))
 					#fill in the numbers
 					for param in paramList:
+						if isinstance(problem.parameters[param], Parameters.Sim):
+							if problem.parameters[param].is_image():
+								formStr =  formStr.replace("["+param+"]", r"\includegraphics[width=1\textwidth]{"+problem.parameters[param].plot_img_paths[i]+"}\n\n")
+								continue
 						formStr =  formStr.replace("["+param+"]",str(problem.parameters[param].value[i]))
 					soln.write(formStr + "\n\n")
 				elif isinstance(item,Displays.Image):
