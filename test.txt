@@ -1,10 +1,10 @@
 TITLEPAGE
 MARKTOTAL
-TITLETEXT1 ECE999 - Course Name
-TITLETEXT2 Test Problem Set
-DURATION 30 minutes
-EXAMINER fakename joe
-DATE this is really just arbitrary text
+TITLETEXT1 ECE999 - Fictional Electronics
+TITLETEXT2 Midterm Examination
+DURATION 90 minutes
+EXAMINER C. Exavier
+DATE March 2, 2021
 =====
 TITLE Subtraction
 MARKS 10
@@ -31,7 +31,7 @@ SOLTEXT solution is [hot_pancakes]
 SOLDISPLAY ALL
 =====
 TITLE Delay constraints - Midterm 2014
-MARKS 2 
+MARKS 5 
 VAR Tsetup RAND 20 70
 VAR Thold RAND 30 60
 VAR Tpcq RAND 20 50
@@ -43,8 +43,8 @@ TEXT In the sequential circuit below, the propagation delays of each combination
 SOLTEXT solution is [Output]MHz
 SOLDISPLAY ALL
 =====
-TITLE Power Dissapation - Midterm 2014
-MARKS 10
+TITLE Power Dissipation - Midterm 2014
+MARKS 12
 VAR Cx CONST 20
 VAR Cy CONST 20
 VAR Cz CONST 80
@@ -59,16 +59,16 @@ VAR A2 CALC ((1-[Pb]*(1-[Ps]))*([Pb]*(1-[Ps])))
 VAR A3 CALC ((1-[Pb]*(1-[Ps]))*(1-[Pa]*[Ps]))*(1-(1-[Pb]*(1-[Ps]))*(1-[Pa]*[Ps]))
 VAR P_total CALC ([A1]*[Cx]+[A2]*[Cy]+[A3]*[Cz])*[f]*[VDD]^2 
 VAR P_b CALC [Ps]*([Cz]+[Cx])*[f]*[VDD]^2+(1-[Ps])*([Cz]+[Cy])*[f2]*[VDD]^2
-TEXT For the 2-to-1 multiplexer below, the parasitic capacitance at each node is CX=[Cx], CY=[Cy], and CZ=[Cz], and VDD=[VDD]V
+TEXT For the 2-to-1 multiplexer below, the parasitic capacitance at each node is CX=[Cx]fF, CY=[Cy]fF, and CZ=[Cz]fF, and VDD=[VDD]V.
 IMAGE multiplexer
-TEXT a) Find the dynamic power dissipation, Pswitching1, given that the clock frequency is 2GHz and that the inputs A, B, and S are random, independent variables with probabilities
-TEXT b) Find the dynamic power dissipation,  Pswitching2, if input A is now a 2GHz clock signal, input B is a 1GHz clock from a clock divider circuit, and input S is a random control signal with a probability P(S=1)=[Ps]
+TEXT a) Find the dynamic power dissipation, Pswitching1, given that the clock frequency is 2GHz and that the inputs A, B, and S are random, independent variables with probabilities P(A=1)=[Pa] P(B=1)=[Pb] P(S=1)=[Ps]
+TEXT b) Find the dynamic power dissipation, Pswitching2, if input A is now a 2GHz clock signal, input B is a 1GHz clock from a clock divider circuit, and input S is a random control signal with a probability P(S=1)=[Ps]
 SOLTEXT Pswitching1 is [P_total] uW
 SOLTEXT Pswitching2 is [P_b] uW
 SOLDISPLAY ALL 
 =====
 TITLE INVERTER CHAIN SIZING - Midterm 2018F
-MARKS 7
+MARKS 8
 VAR Cout CONST 15000
 VAR Cin CONST 3
 VAR Tpar CONST 12
@@ -80,4 +80,16 @@ VAR Total CALC [Tpd1]+[Tpd2]
 TEXT Given that the minimum-size inverter has an input capacitance of [Cin]fF and its inherent delay is equal to [Tpar]ps find the number of inverters for an inverter chain that minimizes the prop delay to drive a [Cout] load using a fan-out factor of 4 for the inverter chain sizing. Ensure that the correct input logic value appears at the output
 SOLTEXT Total delay is [Total] ps
 SOLDISPLAY ALL 
+=====
+TITLE Voltage Divider Trend Scenario
+MARKS 5
+SCHEMATIC sample_asc_files/volt_div.sp
+SCHEMATIC sample_asc_files/simple_R_series.asc
+VAR R1 CONST 2
+VAR R2 RAND 1 10
+VAR result SIM n002
+TOSIM R1 R_1
+TOSIM R2 R_2
+TEXT Draw a graph representing how a voltage divider voltage reading would vary as the voltage source value gets changed. Let R1 be [R1]. Let R2 be [R2]. Let the voltage value range from 0 volts to 20 volts.
+SOLDISPLAY ALL
 =====
