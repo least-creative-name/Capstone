@@ -244,7 +244,7 @@ def parse_schematic_paths_for_problems(container):
     files = glob.glob('./simulation/images/*')
     for f in files:
         os.remove(f)
-    with open('./simulation/text/out.txt', 'r+') as f:
+    with open('./simulation/text/out.txt', 'w') as f:
         f.truncate(0)
     for problem in container.get_problems():
         if(problem.circuit_schematic_path != None):
