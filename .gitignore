@@ -135,3 +135,7 @@ dmypy.json
 #output folders
 output/
 tex/
+
+#LTspice garbage
+*.raw
+*.net
