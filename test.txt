@@ -94,3 +94,16 @@ TOSIM R2 R_2
 SOLTEXT The graph is [result]
 SOLTEXT Ensure the slope matches
 =====
+TITLE Sample for Abi to play with for bode plots
+MARKS 5
+TEXT Draw a bode plot for a simple RC circuit where voltage source's frequency varies from 1hz to 500 hz. Let R1 be [R1]. Let C1 be [C1].
+SCHEMATIC sample_asc_files/RC_example.asc
+SCHEMATIC sample_asc_files/RC_example.sp
+VAR R1 CONST 47
+VAR C1 CONST 50
+VAR result SIM n002
+TOSIM R1 R_1
+TOSIM C1 C_1
+SOLTEXT The graph is [result]
+SOLTEXT Ensure the slope matches
+=====
