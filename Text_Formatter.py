@@ -203,6 +203,7 @@ def format_text(container, num_variants):
 			for param in problem.parameters:
 				if first == 1:
 					first = 0
+					summary.write("\"VariantNum\", ")
 				else:
 					summary.write(", ")
 				summary.write("\""+param+"\"")
@@ -213,6 +214,7 @@ def format_text(container, num_variants):
 				for param in problem.parameters:
 					if first == 1:
 						first = 0
+						summary.write(str(i)+", ")
 					else:
 						summary.write(", ")
 					if isinstance(problem.parameters[param], Parameters.Sim):
