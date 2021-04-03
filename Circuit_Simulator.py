@@ -1,5 +1,6 @@
 import Parameters
 import Displays
+import math
 import Problem_Modifier
 import PySpice
 import numpy as np
@@ -87,7 +88,50 @@ class spice_schematic:
         figure_img_path = './simulation/images/'+self.problem_specs.title+'_'+node_name+'_'+str(i)+'.png'
         plt.savefig(figure_img_path)
         return figure_img_path
-    
+
+    def plot_bode(self,amplitude_real,amplitude_imag,analyse_value_real, analyse_value_imag ,freq,node_name,i=-1, analyse_value_2 = None):
+        '''
+        Function to plot graphs 
+        '''
+        figure, ax = plt.subplots(nrows=1, ncols=2, figsize=(5, 3))
+
+        ax[0].set_title("Magnitude Bode plot")
+        ax[0].set_ylabel("Magnitude(dB)")
+        ax[0].set_xlabel("Frequency(Hz)")
+
+
+        ax[1].set_title("Phase Bode plot",pad=25)
+        ax[1].set_ylabel("Phase(rad)")
+        ax[1].set_xlabel("Frequency(Hz)")
+        ax[0].grid()
+        ax[1].grid()
+
+        mag_list = []
+        phase_list = []
+        freq_list = []
+        for (item1, item2 , item3) in zip(analyse_value_imag, analyse_value_real,freq):
+            mag_list.append(-20*math.log10(math.sqrt(float(item1)*float(item1)+float(item2)*float(item2))))
+            phase_list.append(math.atan(float(item1)/float(item2)))
+            freq_list.append(float(item3))
+        # if analyse_value_2 != None:
+        #     ax[0].plot(analyse_value,analyse_value_2)
+        # else:
+        #     ax.plot(analyse_value)
+        # ax.legend(('input', 'output'), loc=(.05,.1))
+        # ax.legend(('input', 'output'), loc=(.05,.1))
+        # ax.set_ylim(float(-amplitude*1.1), float(amplitude*1.1))
+        # plt.tight_layout()
+
+        ax[0].plot(freq_list,mag_list)
+        ax[1].plot(freq_list,phase_list)
+        ax[0].set_ylim(float(max(mag_list)), float(min(mag_list)))
+        z = min(phase_list)
+        ax[1].set_ylim(float(max(phase_list)), float(min(phase_list)))
+        plt.tight_layout()
+        figure_img_path = './simulation/images/'+self.problem_specs.title+'_'+node_name+'_'+str(i)+'.png'
+        plt.savefig(figure_img_path)
+        return figure_img_path
+        
     def simulate_mode_dc_op(self,i):
         '''
         Computes the DC operating point treating 
@@ -230,8 +274,9 @@ class spice_schematic:
         amplitude_real = 2
         simulator = self.circuit.simulator(temperature=25, nominal_temperature=25)
         analysis = simulator.ac(start_frequency=convert_num(args[2]), stop_frequency=convert_num(args[3]), number_of_points=convert_num(args[1]),  variation=args[0])
-        img_path = self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_real,np.real(analysis.nodes['n002']), 'n002',j)
-        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_imag,np.imag(analysis.nodes['n002']), 'n002',j)
+        freq_list = np.linspace(int(convert_num(args[2])),int(convert_num(args[3])),int(convert_num(args[1])))
+        img_path = self.plot_bode(amplitude_real,amplitude_imag,np.real(analysis.nodes['n002']),np.imag(analysis.nodes['n002']),freq_list, 'n002',j)
+        # self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_imag,np.imag(analysis.nodes['n002']), 'n002',j)
         for key,node in analysis.nodes.items():
             for sim_node in self.problem_specs.sims:
                 if sim_node.schematic_var_name == str(node):
