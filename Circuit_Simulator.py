@@ -230,7 +230,7 @@ class spice_schematic:
         amplitude_real = 2
         simulator = self.circuit.simulator(temperature=25, nominal_temperature=25)
         analysis = simulator.ac(start_frequency=convert_num(args[2]), stop_frequency=convert_num(args[3]), number_of_points=convert_num(args[1]),  variation=args[0])
-        self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_real,np.real(analysis.nodes['n002']), 'n002',j)
+        img_path = self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_real,np.real(analysis.nodes['n002']), 'n002',j)
         self.plot_graph('Frequency Response Bode plot','dB','Frequency',amplitude_imag,np.imag(analysis.nodes['n002']), 'n002',j)
         for key,node in analysis.nodes.items():
             for sim_node in self.problem_specs.sims:
@@ -238,6 +238,7 @@ class spice_schematic:
                     if sim_node.get_value() == None:
                         sim_node.value = []
                     sim_node.value.append(node)
+                    sim_node.add_image(img_path)
 
 def parse_schematic_paths_for_problems(container):
     netlists = []

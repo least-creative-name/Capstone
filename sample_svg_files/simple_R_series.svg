@@ -178,19 +178,16 @@
 <use xlink:href="#voltage" x="112" y="48" transform = "rotate(0 112 48)" />
 </g>
 <text x="144" y="64" style="white-space:pre;text-anchor:start;font-size:20px;"><tspan dy="0.25em">V1</tspan></text>
-<text x="144" y="144" style="white-space:pre;text-anchor:start;font-size:20px;"><tspan dy="0.25em">10</tspan></text>
 <g 
 >
 <use xlink:href="#res" x="336" y="48" transform = "rotate(0 336 48)" />
 </g>
-<text x="380" y="88" style="white-space:pre;text-anchor:start;font-size:20px;"><tspan dy="0.25em">R1</tspan></text>
-<text x="380" y="124" style="white-space:pre;text-anchor:start;font-size:20px;"><tspan dy="0.25em">7</tspan></text>
+<text x="380" y="88" style="white-space:pre;text-anchor:start;font-size:20px;"><tspan dy="0.25em">R2</tspan></text>
 <g 
 >
 <use xlink:href="#res" x="288" y="-32" transform = "rotate(90 288 -32)" />
 </g>
-<text x="232" y="-40" style="white-space:pre;text-anchor:middle;font-size:20px;"><tspan dy="0.0em">R2</tspan></text>
-<text x="232" y="8" style="white-space:pre;text-anchor:middle;font-size:20px;"><tspan dy="0.75em">3</tspan></text>
+<text x="232" y="-40" style="white-space:pre;text-anchor:middle;font-size:20px;"><tspan dy="0.0em">R1</tspan></text>
 <use xlink:href="#svg_gnd" x="112" y="240" transform = "rotate(0 112 240)" />
 </g>
 </svg>

@@ -9,6 +9,8 @@ def format_text(container, num_variants):
 	#prep the output folder
 	if not os.path.exists("tex"):
 		os.mkdir("tex")
+	if not os.path.exists("summary"):
+		os.mkdir("summary")
 
 	print("Beginning TeX output formatting");
 	for i in range(num_variants):
@@ -161,6 +163,10 @@ def format_text(container, num_variants):
 					paramList = set(re.findall("\[([^\[\]]+)\]", formStr))
 					#fill in the numbers
 					for param in paramList:
+						if isinstance(problem.parameters[param], Parameters.Sim):
+							if problem.parameters[param].is_image():
+								formStr =  formStr.replace("["+param+"]", r"\includegraphics[width=1\textwidth]{"+problem.parameters[param].plot_img_paths[i]+"}\n\n")
+								continue
 						formStr =  formStr.replace("["+param+"]",str(problem.parameters[param].value[i]))
 					soln.write(formStr + "\n\n")
 				elif isinstance(item,Displays.Image):
@@ -185,3 +191,39 @@ def format_text(container, num_variants):
 		prob.close()
 		soln.close()
 		print("Problem formatting complete")
+
+		print("Preparing summary file")
+
+		count = 1
+		
+		for problem in container.get_problems():
+			summary = open("summary/question"+str(count)+".csv","w")
+			first = 1
+			# header
+			for param in problem.parameters:
+				if first == 1:
+					first = 0
+					summary.write("\"VariantNum\", ")
+				else:
+					summary.write(", ")
+				summary.write("\""+param+"\"")
+
+			summary.write("\n")
+			for i in range(num_variants):
+				first = 1
+				for param in problem.parameters:
+					if first == 1:
+						first = 0
+						summary.write(str(i)+", ")
+					else:
+						summary.write(", ")
+					if isinstance(problem.parameters[param], Parameters.Sim):
+							if problem.parameters[param].is_image():
+								summary.write("\"graph\"")
+								continue
+
+					summary.write(str(problem.parameters[param].value[i]))
+				summary.write("\n")
+
+			summary.close()
+			count = count+1
