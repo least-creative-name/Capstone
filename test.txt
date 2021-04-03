@@ -1,47 +1,10 @@
 TITLEPAGE
 MARKTOTAL
 TITLETEXT1 ECE999 - Fictional Electronics
-TITLETEXT2 Midterm Examination
+TITLETEXT2 Demonstration Exam
 DURATION 90 minutes
 EXAMINER C. Exavier
-DATE March 2, 2021
-=====
-TITLE Subtraction
-MARKS 10
-IMAGE circuit_diagram
-VAR R1 CONST 373
-VAR R2 RAND 1 10
-VAR R3 RANGE 1 2 3 4
-VAR hot_pancakes CALC [R1]-[R2]-[R3]
-TEXT subtract [R2], [R3] from [R1].
-TEXT A second line of text
-SOLTEXT solution is [hot_pancakes]
-SOLDISPLAY ALL
-=====
-TITLE Addition
-MARKS 10
-VAR R1 CONST 373
-VAR R2 RAND 1 10
-VAR R3 RANGE 1 2 3 5
-VAR french_toast CALC [hot_pancakes]+1
-VAR hot_pancakes CALC [R1]+[R2]+[R3]
-TEXT Sum const:[R1] rand:[R2] range:[R3]
-TEXT A second line of text
-SOLTEXT solution is [hot_pancakes]
-SOLDISPLAY ALL
-=====
-TITLE Delay constraints - Midterm 2014
-MARKS 5 
-VAR Tsetup RAND 20 70
-VAR Thold RAND 30 60
-VAR Tpcq RAND 20 50
-VAR Tskew RAND 20 50
-VAR Tpd CONST 1330
-VAR Output_Frequency CALC 1/([Tpd]+[Tskew]+[Tpcq]+[Tsetup])
-VAR Output CALC [Output_Frequency]*1000000
-TEXT In the sequential circuit below, the propagation delays of each combinational logic block is shown. Assume that the flip-flops have a setup time of [Tsetup]ps, a hold time of [Thold]ps, and a clock-to-Q propagation delay of [Tpcq]ps.  The maximum clock skew (tskew) is [Tskew] ps .Determinethe maximum clock frequency, fmax,for this sequential circuit
-SOLTEXT solution is [Output]MHz
-SOLDISPLAY ALL
+DATE April 3, 2021
 =====
 TITLE Power Dissipation - Midterm 2014
 MARKS 12
@@ -94,7 +57,7 @@ TOSIM R2 R_2
 SOLTEXT The graph is [result]
 SOLTEXT Ensure the slope matches
 =====
-TITLE Sample for Abi to play with for bode plots
+TITLE Bode Plot Question
 MARKS 5
 TEXT Draw a bode plot for a simple RC circuit where voltage source's frequency varies from 1hz to 500 hz. Let R1 be [R1]. Let C1 be [C1].
 SCHEMATIC sample_asc_files/RC_example.asc
@@ -105,5 +68,4 @@ VAR result SIM n002
 TOSIM R1 R_1
 TOSIM C1 C_1
 SOLTEXT The graph is [result]
-SOLTEXT Ensure the slope matches
 =====
